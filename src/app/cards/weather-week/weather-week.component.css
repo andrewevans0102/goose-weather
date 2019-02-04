@@ -1,0 +1,13 @@
+.full-width-table {
+  width: 100%;
+}
+
+.test {
+  display: flex;
+  align-content: center;
+  align-items: center;
+}
+
+.mat-header-cell {
+  text-align: center;
+}

@@ -1,0 +1,10 @@
+<mat-grid-list cols="4" rowHeight="4em">
+    <mat-grid-tile
+        *ngFor="let tile of tiles"
+        [colspan]="tile.cols"
+        [rowspan]="tile.rows"
+        [style.background]="tile.color">
+      <p *ngIf="tile.text!=='image'">{{tile.text}}</p>
+      <img src="../../../assets/sunny.png" *ngIf="tile.text==='image'">
+    </mat-grid-tile>
+  </mat-grid-list>

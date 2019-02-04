@@ -1,0 +1,115 @@
+<!-- <div class="mat-elevation-z8 scroll">
+    <table mat-table class="full-width-table" [dataSource]="dataSource">
+      <ng-container matColumnDef="day">
+        <th mat-header-cell *matHeaderCellDef class="title"> day </th>
+        <td mat-cell *matCellDef="let row"> {{row.day}} </td>
+      </ng-container>
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef> description </th>
+        <td mat-cell *matCellDef="let row"> {{row.description}} </td>
+      </ng-container>
+      <ng-container matColumnDef="high">
+        <th mat-header-cell *matHeaderCellDef> high </th>
+        <td mat-cell *matCellDef="let row"> {{row.high}} </td>
+      </ng-container>
+      <ng-container matColumnDef="low">
+        <th mat-header-cell *matHeaderCellDef> low </th>
+        <td mat-cell *matCellDef="let row"> {{row.low}} </td>
+      </ng-container>
+      <ng-container matColumnDef="precip">
+        <th mat-header-cell *matHeaderCellDef> precip </th>
+        <td mat-cell *matCellDef="let row"> {{row.precip}} </td>
+      </ng-container>
+      <ng-container matColumnDef="wind">
+        <th mat-header-cell *matHeaderCellDef> wind </th>
+        <td mat-cell *matCellDef="let row"> {{row.wind}} </td>
+      </ng-container>
+      <ng-container matColumnDef="humidity">
+        <th mat-header-cell *matHeaderCellDef> humidity </th>
+        <td mat-cell *matCellDef="let row"> {{row.humidity}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div> -->
+<!--
+    <mat-table [dataSource]="dataSource" class="scroll">
+      <ng-container matColumnDef="day">
+        <th mat-header-cell *matHeaderCellDef class="title"> day </th>
+        <td mat-cell *matCellDef="let row"> {{row.day}} </td>
+      </ng-container>
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef> description </th>
+        <td mat-cell *matCellDef="let row" class="test"> {{row.description}} </td>
+      </ng-container>
+      <ng-container matColumnDef="high">
+        <th mat-header-cell *matHeaderCellDef> high </th>
+        <td mat-cell *matCellDef="let row"> {{row.high}} </td>
+      </ng-container>
+      <ng-container matColumnDef="low">
+        <th mat-header-cell *matHeaderCellDef> low </th>
+        <td mat-cell *matCellDef="let row"> {{row.low}} </td>
+      </ng-container>
+      <ng-container matColumnDef="precip">
+        <th mat-header-cell *matHeaderCellDef> precip </th>
+        <td mat-cell *matCellDef="let row"> {{row.precip}} </td>
+      </ng-container>
+      <ng-container matColumnDef="wind">
+        <th mat-header-cell *matHeaderCellDef> wind </th>
+        <td mat-cell *matCellDef="let row"> {{row.wind}} </td>
+      </ng-container>
+      <ng-container matColumnDef="humidity">
+        <th mat-header-cell *matHeaderCellDef> humidity </th>
+        <td mat-cell *matCellDef="let row"> {{row.humidity}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </mat-table> -->
+  <!-- <div class="container">
+    <div class="row">
+      <div class="col-sm">
+        <table class="table table-bordered table-responsive-sm hourly-table">
+          <thead>
+            <tr>
+              <th scope="col">Day</th>
+              <th scope="col">Description</th>
+              <th scope="col">High</th>
+              <th scope="col">Low</th>
+              <th scope="col">Precip</th>
+              <th scope="col">Wind</th>
+              <th scope="col">Humiditiy</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor='let hour of hours'>
+              <td> {{hour.day}} </td>
+              <td> {{hour.description}} </td>
+              <td> {{hour.high}} </td>
+              <td> {{hour.low}} </td>
+              <td> {{hour.precip}} </td>
+              <td> {{hour.wind}} </td>
+              <Td> {{hour.humidity}} </Td>
+            </tr>
+        </table>
+      </div>
+    </div>
+  </div> -->
+  <!-- <div class="container">
+    <div class="row">
+      <div class="col-sm"> -->
+        <table class="table table-bordered table-responsive-sm">
+          <tbody>
+            <td *ngFor="let hour of hours">
+              <tr> <span>{{hour.day}}</span> </tr>
+              <!-- <tr> {{hour.description}} </tr> -->
+              <tr><img src="https://api.weather.gov/icons/land/day/few?size=small"></tr>
+              <tr> <b>{{hour.high}}</b> </tr>
+              <tr> {{hour.low}} </tr>
+              <tr> {{hour.wind}} </tr>
+            </td>
+        </table>
+      <!-- </div>
+    </div>
+  </div> -->

@@ -1,0 +1,54 @@
+.dashboard-card {
+  position: absolute;
+  top: 0.5em;
+  left: 1em;
+  right: 1em;
+  bottom: 0.5em;
+  background-color: lightskyblue;
+  color: darkblue;
+}
+
+.dashboard-card-content {
+  text-align: center;
+}
+
+.title-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  padding: .5em;
+}
+
+.title {
+  font-size: 2em;
+}
+
+.page {
+  background-color: lightgray;
+}
+
+.top-section {
+  display: flex;
+  align-items: left;
+  flex-direction: start;
+  margin-top: 2em;
+}
+
+.top-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2em;
+  margin-left: 2em;
+}
+
+.first-row {
+  display: flex;
+  align-items: flex-end;
+}
+
+.second-row {
+  display: flex;
+  margin-top: 1em;
+}

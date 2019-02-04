@@ -1,0 +1,6 @@
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import "~bootstrap/dist/css/bootstrap.css";
+
+html {
+  background-color: lightgray;
+}
