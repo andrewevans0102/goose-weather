@@ -14,6 +14,7 @@ import { WeatherHourlyComponent } from './cards/weather-hourly/weather-hourly.co
 import { WeatherDiscussionComponent } from './cards/weather-discussion/weather-discussion.component';
 import { AboutComponent } from './cards/about/about.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { HttpClientModule } from '@angular/common/http';
 
 
 const appRoutes: Routes = [
@@ -45,7 +46,8 @@ const appRoutes: Routes = [
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

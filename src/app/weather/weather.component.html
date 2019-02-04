@@ -1,7 +1,7 @@
 <div class="page">
   <div class="top-container page">
     <div class="first-row">
-      <h1 class="display-4">Goose Weather!</h1>
+      <h1 class="display-4">Welcome to Goose Weather!</h1>
       <img src='../../assets/goose.svg'>
       <!-- <div>Icons made by <a href="https://www.flaticon.com/authors/smalllikeart" title="smalllikeart">smalllikeart</a> from <a href="https://www.flaticon.com/" 			    title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" 			    title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div> -->
     </div>
@@ -21,7 +21,7 @@
           </mat-card-header>
           <mat-card-content class="dashboard-card-content">
             <div>
-              <app-current-conditions *ngIf="card.title==='Current Conditions'"></app-current-conditions>
+              <app-current-conditions *ngIf="card.title==='Current Conditions'" [weatherDisplay]="weatherDisplay"></app-current-conditions>
               <app-weather-week *ngIf="card.title==='Weather Week'"></app-weather-week>
               <app-weather-hourly *ngIf="card.title==='Hourly Weather'"></app-weather-hourly>
               <app-weather-discussion *ngIf="card.title==='Weather Discussion'"></app-weather-discussion>
