@@ -4,7 +4,8 @@ import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { Card } from 'src/models/card';
 import { forEach } from '@angular/router/src/utils/collection';
 import { WeatherDisplay } from '../models/weather-display';
-import { WeatherService } from '../services/weather-service.service';
+import { WeatherService } from '../services/weather.service';
+import { WeatherData } from '../models/weather-data/weather-data';
 
 @Component({
   selector: 'app-weather',
@@ -22,6 +23,7 @@ export class WeatherComponent implements OnInit {
   lat: string;
   long: string;
   weatherDisplay: WeatherDisplay = new WeatherDisplay();
+  weatherData: WeatherData = new WeatherData();
   cardsDisplay = [
     {
       title: 'Current Conditions',
@@ -80,18 +82,29 @@ export class WeatherComponent implements OnInit {
     this.lat = position.coords.latitude.toFixed(4).toString();
     this.long = position.coords.longitude.toFixed(4).toString();
 
+    // this.weatherService.getWeather(this.lat, this.long)
+    // .then(
+    //   function(success) {
+    //     this.weatherDisplay = success;
+    //     if (this.weatherDisplay.errorMessage !== undefined) {
+    //       alert(this.weatherDisplay.errorMessage);
+    //     }
+    //   }.bind(this),
+    //   function(error) {
+    //     alert(error);
+    //     this.weatherDisplay = new WeatherDisplay();
+    //   }.bind(this)
+    // );
+
     this.weatherService.getWeather(this.lat, this.long)
-    .then(
-      function(success) {
-        this.weatherDisplay = success;
+      .then((resolve) => {
+        console.log(resolve);
+        this.weatherData = resolve;
         if (this.weatherDisplay.errorMessage !== undefined) {
           alert(this.weatherDisplay.errorMessage);
         }
-      }.bind(this),
-      function(error) {
-        alert(error);
-        this.weatherDisplay = new WeatherDisplay();
-      }.bind(this)
-    );
+      })
+      .catch((error) => { alert(error); });
+
   }
 }
