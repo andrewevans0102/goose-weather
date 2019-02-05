@@ -73,6 +73,34 @@ export class WeatherComponent implements OnInit {
             card.rows = 1;
           }
         }
+      } else {
+        this.cardsDisplay = [
+          {
+            title: 'Current Conditions',
+            cols: 1,
+            rows: 1
+          },
+          {
+            title: 'About',
+            cols: 1,
+            rows: 1
+          },
+          {
+            title: 'Weather Discussion',
+            cols: 1,
+            rows: 2
+          },
+          {
+            title: 'Hourly Weather',
+            cols: 2,
+            rows: 1
+          },
+          {
+            title: 'Weather Week',
+            cols: 3,
+            rows: 1
+          }
+        ];
       }
 
       return this.cardsDisplay;
@@ -111,9 +139,8 @@ export class WeatherComponent implements OnInit {
 
     this.weatherService.getWeather(this.lat, this.long)
       .then((resolve) => {
-        console.log(resolve);
         this.weatherData = resolve;
-        if (this.weatherData.errorMessage !== undefined) {
+        if (this.weatherData.errorMessage !== '') {
           alert(this.weatherData.errorMessage);
         }
       })

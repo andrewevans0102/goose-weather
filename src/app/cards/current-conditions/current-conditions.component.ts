@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { WeatherDisplay } from 'src/app/models/weather-display';
 import { WeatherData } from 'src/app/models/weather-data/weather-data';
 
 export interface Tile {
