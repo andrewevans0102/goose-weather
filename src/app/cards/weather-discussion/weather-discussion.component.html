@@ -1,13 +1,13 @@
-<!-- <div class="discussion">
-  <mat-accordion *ngFor="let discussion of discussions">
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          {{discussion.title}}
-        </mat-panel-title>
-      </mat-expansion-panel-header>
+<mat-accordion>
+  <mat-expansion-panel *ngFor="let week of data.weeklyForecast">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <span>{{week.name}}</span>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <span class="panel-content">{{week.detailedForecast}}</span>
+  </mat-expansion-panel>
+</mat-accordion>
 
-      <p>{{discussion.description}}</p>
-    </mat-expansion-panel>
-  </mat-accordion>
-</div> -->
+
+

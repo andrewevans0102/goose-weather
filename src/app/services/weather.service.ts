@@ -39,6 +39,20 @@ export class WeatherService {
       this.weatherData.currentConditions.sunset = this.createDateFromMillseconds(currentWeather.sys.sunset);
       this.weatherData.currentConditions.icon = this.selectCurrentConditionsIcon(currentWeather.weather[0].icon);
 
+      if (currentWeather.wind.speed >= 0 && currentWeather.wind.speed < 90) {
+        // first quadrant
+        this.weatherData.currentConditions.windDirection = 'NE';
+      } else if (currentWeather.wind.speed >= 90 && currentWeather.wind.speed < 180) {
+        // second quadrant
+        this.weatherData.currentConditions.windDirection = 'SE';
+      } else if (currentWeather.wind.speed >= 180 && currentWeather.wind.speed < 270) {
+        // second quadrant
+        this.weatherData.currentConditions.windDirection = 'SW';
+      } else if (currentWeather.wind.speed >= 270 && currentWeather.wind.speed <= 360) {
+        // second quadrant
+        this.weatherData.currentConditions.windDirection = 'NW';
+      }
+
       const weeklyForecast: any = await this.getNoaaWeeklyForecast(this.weatherData.NoaaWeeklyForecastUrl);
       if (weeklyForecast instanceof Error) {
         throw weeklyForecast;
@@ -179,7 +193,7 @@ export class WeatherService {
       const startDate: Date = new Date(period.startTime);
       let hours = (startDate.getHours()).toString();
       if (hours.length === 1) {
-        hours = hours + '0';
+        hours = 0 + hours;
       }
       hourlyForecast.time = hours + ':00';
       hourlyForecastTotal.push(hourlyForecast);

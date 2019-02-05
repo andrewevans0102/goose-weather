@@ -1,22 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-
-export interface WeatherWeekItem {
-  day: string;
-  description: string;
-  high: string;
-  low: string;
-  precip: string;
-  wind: string;
-  humidity: string;
-}
-
-const EXAMPLE_DATA: WeatherWeekItem[] = [
-  {day: 'Today', description: 'AM Snow Showers', high: '27', low: '20', precip: '90%', wind: 'ENE 7MPH', humidity: '72%'},
-  {day: 'SAT', description: 'AM Snow Showers', high: '27', low: '20', precip: '90%', wind: 'ENE 7MPH', humidity: '72%'},
-  {day: 'SUN', description: 'AM Snow Showers', high: '27', low: '20', precip: '90%', wind: 'ENE 7MPH', humidity: '72%'},
-  {day: 'MON', description: 'AM Snow Showers', high: '27', low: '20', precip: '90%', wind: 'ENE 7MPH', humidity: '72%'},
-  {day: 'TUE', description: 'AM Snow Showers', high: '27', low: '20', precip: '90%', wind: 'ENE 7MPH', humidity: '72%'}
-];
+import { Component, OnInit, Input } from '@angular/core';
+import { WeatherData } from 'src/app/models/weather-data/weather-data';
+import { ViewEncapsulation } from '@angular/compiler/src/core';
 
 @Component({
   selector: 'app-weather-week',
@@ -25,13 +9,18 @@ const EXAMPLE_DATA: WeatherWeekItem[] = [
 })
 export class WeatherWeekComponent implements OnInit {
 
-  displayedColumns = ['day', 'description', 'high', 'low', 'precip', 'wind', 'humidity'];
+  data = new WeatherData();
 
-  dataSource = EXAMPLE_DATA;
+  @Input()
+  set weatherData(weatherData: WeatherData) {
+    this.data = weatherData || null;
+  }
+
+  encapsulation: ViewEncapsulation.None;
 
   constructor() { }
 
   ngOnInit() {
-
   }
+
 }

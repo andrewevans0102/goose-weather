@@ -11,7 +11,7 @@
     </div>
   </div>
   <div>
-    <mat-grid-list cols="2" rowHeight="25em">
+    <mat-grid-list cols="3" rowHeight="28em">
       <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
         <mat-card class="dashboard-card">
           <mat-card-header>
@@ -21,10 +21,10 @@
           </mat-card-header>
           <mat-card-content class="dashboard-card-content">
             <div>
-              <app-current-conditions *ngIf="card.title==='Current Conditions'" [weatherDisplay]="weatherDisplay"></app-current-conditions>
-              <app-weather-week *ngIf="card.title==='Weather Week'"></app-weather-week>
-              <app-weather-hourly *ngIf="card.title==='Hourly Weather'"></app-weather-hourly>
-              <app-weather-discussion *ngIf="card.title==='Weather Discussion'"></app-weather-discussion>
+              <app-current-conditions *ngIf="card.title==='Current Conditions'" [weatherData]="weatherData"></app-current-conditions>
+              <app-weather-week *ngIf="card.title==='Weather Week'" [weatherData]="weatherData"></app-weather-week>
+              <app-weather-hourly *ngIf="card.title==='Hourly Weather'" [weatherData]="weatherData"></app-weather-hourly>
+              <app-weather-discussion *ngIf="card.title==='Weather Discussion'" [weatherData]="weatherData"></app-weather-discussion>
               <app-about *ngIf="card.title==='About'"></app-about>
             </div>
           </mat-card-content>

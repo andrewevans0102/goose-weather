@@ -1,10 +1,13 @@
 <mat-grid-list cols="4" rowHeight="4em">
-    <mat-grid-tile
-        *ngFor="let tile of tiles"
-        [colspan]="tile.cols"
-        [rowspan]="tile.rows"
-        [style.background]="tile.color">
-      <p *ngIf="tile.text!=='image'">{{tile.text}}</p>
-      <img src="../../../assets/sunny.png" *ngIf="tile.text==='image'">
-    </mat-grid-tile>
-  </mat-grid-list>
+  <mat-grid-tile *ngFor="let tile of tiles" [colspan]="tile.cols" [rowspan]="tile.rows" [style.background]="tile.color">
+    <p *ngIf="tile.text==='Latitude: '">{{tile.text}} {{data.currentConditions.latitude}}</p>
+    <p *ngIf="tile.text==='Longitude: '">{{tile.text}} {{data.currentConditions.longitude}}</p>
+    <p *ngIf="tile.text==='City: '">{{tile.text}} {{data.currentConditions.city}}</p>
+    <p *ngIf="tile.text==='State: '">{{tile.text}} {{data.currentConditions.state}}</p>
+    <p *ngIf="tile.text==='Temp: '">{{tile.text}} {{data.currentConditions.temp}}°</p>
+    <p *ngIf="tile.text==='Wind: '">{{tile.text}} {{data.currentConditions.windSpeed}} {{data.currentConditions.windDirection}}</p>
+    <p *ngIf="tile.text==='Sunrise: '">{{tile.text}} {{data.currentConditions.sunrise}}</p>
+    <p *ngIf="tile.text==='Sunset: '">{{tile.text}} {{data.currentConditions.sunset}}</p>
+    <img src={{data.currentConditions.icon}} *ngIf="tile.text==='image'">
+  </mat-grid-tile>
+</mat-grid-list>

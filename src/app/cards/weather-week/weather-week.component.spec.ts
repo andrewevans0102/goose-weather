@@ -1,6 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { MatPaginatorModule, MatSortModule, MatTableModule } from '@angular/material';
 
 import { WeatherWeekComponent } from './weather-week.component';
 
@@ -10,14 +8,9 @@ describe('WeatherWeekComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ WeatherWeekComponent ],
-      imports: [
-        NoopAnimationsModule,
-        MatPaginatorModule,
-        MatSortModule,
-        MatTableModule,
-      ]
-    }).compileComponents();
+      declarations: [ WeatherWeekComponent ]
+    })
+    .compileComponents();
   }));
 
   beforeEach(() => {
@@ -26,7 +19,7 @@ describe('WeatherWeekComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should compile', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });

@@ -6,9 +6,9 @@ export class WeatherData {
   forecastURL = '';
   forecast: {};
   currentConditions: CurrentConditions = new CurrentConditions();
-  weeklyForecast: WeeklyForecast[];
-  hourlyForecast: HourlyForecast[];
-  NoaaWeeklyForecastUrl: string;
-  NoaaHourlyForecastUrl: string;
-  errorMessage: string;
+  weeklyForecast: WeeklyForecast[] = [];
+  hourlyForecast: HourlyForecast[] = [];
+  NoaaWeeklyForecastUrl = '';
+  NoaaHourlyForecastUrl = '';
+  errorMessage = '';
 }

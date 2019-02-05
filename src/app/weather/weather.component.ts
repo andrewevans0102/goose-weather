@@ -31,9 +31,14 @@ export class WeatherComponent implements OnInit {
       rows: 1
     },
     {
-      title: 'Weather Week',
+      title: 'About',
       cols: 1,
       rows: 1
+    },
+    {
+      title: 'Weather Discussion',
+      cols: 1,
+      rows: 2
     },
     {
       title: 'Hourly Weather',
@@ -41,13 +46,8 @@ export class WeatherComponent implements OnInit {
       rows: 1
     },
     {
-      title: 'Weather Discussion',
-      cols: 1,
-      rows: 1
-    },
-    {
-      title: 'About',
-      cols: 1,
+      title: 'Weather Week',
+      cols: 3,
       rows: 1
     }
   ];
@@ -57,8 +57,22 @@ export class WeatherComponent implements OnInit {
     map(({ matches }) => {
       if (matches) {
         for (const card of this.cardsDisplay) {
-          card.cols = 2;
-          card.rows = 1;
+          if (card.title === 'Current Conditions') {
+            card.cols = 3;
+            card.rows = 1;
+          } else if (card.title === 'About') {
+            card.cols = 3;
+            card.rows = 2;
+          } else if (card.title === 'Weather Discussion') {
+            card.cols = 3;
+            card.rows = 2;
+          } else if (card.title === 'Hourly Weather') {
+            card.cols = 3;
+            card.rows = 1;
+          } else if (card.title === 'Weather Week') {
+            card.cols = 3;
+            card.rows = 1;
+          }
         }
       }
 

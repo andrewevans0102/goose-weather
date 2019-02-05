@@ -4,7 +4,6 @@ export class WeeklyForecast {
   temp = '';
   windSpeed = '';
   windDirection = '';
-  imageIcon = '';
   shortForecast = '';
   detailedForecast = '';
   icon = '';

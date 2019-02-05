@@ -1,35 +1,16 @@
-<div class="mat-elevation-z8">
-    <table mat-table class="full-width-table" [dataSource]="dataSource">
-      <ng-container matColumnDef="day">
-        <th mat-header-cell *matHeaderCellDef class="title"> day </th>
-        <td mat-cell *matCellDef="let row"> {{row.day}} </td>
-      </ng-container>
-      <ng-container matColumnDef="description">
-        <th mat-header-cell *matHeaderCellDef> description </th>
-        <td mat-cell *matCellDef="let row"> {{row.description}} </td>
-      </ng-container>
-      <ng-container matColumnDef="high">
-        <th mat-header-cell *matHeaderCellDef> high </th>
-        <td mat-cell *matCellDef="let row"> {{row.high}} </td>
-      </ng-container>
-      <ng-container matColumnDef="low">
-        <th mat-header-cell *matHeaderCellDef> low </th>
-        <td mat-cell *matCellDef="let row"> {{row.low}} </td>
-      </ng-container>
-      <ng-container matColumnDef="precip">
-        <th mat-header-cell *matHeaderCellDef> precip </th>
-        <td mat-cell *matCellDef="let row"> {{row.precip}} </td>
-      </ng-container>
-      <ng-container matColumnDef="wind">
-        <th mat-header-cell *matHeaderCellDef> wind </th>
-        <td mat-cell *matCellDef="let row"> {{row.wind}} </td>
-      </ng-container>
-      <ng-container matColumnDef="humidity">
-        <th mat-header-cell *matHeaderCellDef> humidity </th>
-        <td mat-cell *matCellDef="let row"> {{row.humidity}} </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+<div class="content">
+  <div class="box">
+    <table class="table table-responsive-sm">
+      <tbody>
+        <td *ngFor="let weekday of data.weeklyForecast">
+          <tr class="name">{{weekday.name}}</tr>
+          <tr class="temp">{{weekday.temp}}°</tr>
+          <tr class="wind">{{weekday.windSpeed}} {{weekday.windDirection}}</tr>
+          <tr class="weather-image"><img src={{weekday.icon}}></tr>
+        </td>
+      </tbody>
     </table>
   </div>
+</div>
+
+

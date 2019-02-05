@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { WeatherData } from 'src/app/models/weather-data/weather-data';
 
 @Component({
   selector: 'app-weather-discussion',
@@ -7,33 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WeatherDiscussionComponent implements OnInit {
 
-  discussions = [
-    {
-      title: 'Today',
-      description: 'A slight chance of rain showers after 3pm. Mostly cloudy,' +
-        'with a high near 39. Southwest wind around 3 mph. Chance of precipitation is 20%.'
-    },
-    {
-      title: 'Today',
-      description: 'A slight chance of rain showers after 3pm. Mostly cloudy,' +
-        'with a high near 39. Southwest wind around 3 mph. Chance of precipitation is 20%.'
-    },
-    {
-      title: 'Today',
-      description: 'A slight chance of rain showers after 3pm. Mostly cloudy,' +
-        'with a high near 39. Southwest wind around 3 mph. Chance of precipitation is 20%.'
-    },
-    {
-      title: 'Today',
-      description: 'A slight chance of rain showers after 3pm. Mostly cloudy,' +
-        'with a high near 39. Southwest wind around 3 mph. Chance of precipitation is 20%.'
-    },
-    {
-      title: 'Today',
-      description: 'A slight chance of rain showers after 3pm. Mostly cloudy,' +
-        'with a high near 39. Southwest wind around 3 mph. Chance of precipitation is 20%.'
-    },
-  ];
+  data = new WeatherData();
+
+  @Input()
+  set weatherData(weatherData: WeatherData) {
+    this.data = weatherData || null;
+  }
 
   constructor() { }
 

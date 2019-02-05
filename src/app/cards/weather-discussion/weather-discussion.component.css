@@ -1,12 +1,5 @@
-p {
+.panel-content {
   display: flex;
   justify-content: flex-start;
-  align-items: flex-start;
-  align-content: flex-start;
   text-align: left;
-}
-
-.discussion {
-  height: 20em;
-  overflow: auto;
 }

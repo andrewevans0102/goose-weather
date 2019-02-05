@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
+import { WeatherData } from 'src/app/models/weather-data/weather-data';
 
 const EXAMPLE_DATA = [
   {day: '2:00 PM', description: 'AM Snow Showers', high: '27', low: '20', precip: '90%', wind: 'ENE 7MPH', humidity: '72%'},
@@ -21,6 +22,13 @@ const EXAMPLE_DATA = [
   styleUrls: ['./weather-hourly.component.css']
 })
 export class WeatherHourlyComponent implements OnInit {
+
+  data = new WeatherData();
+
+  @Input()
+  set weatherData(weatherData: WeatherData) {
+    this.data = weatherData || null;
+  }
 
   dataSource = EXAMPLE_DATA;
   hours = EXAMPLE_DATA;
