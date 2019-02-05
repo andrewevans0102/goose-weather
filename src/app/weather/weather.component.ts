@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
-import { Card } from 'src/models/card';
-import { forEach } from '@angular/router/src/utils/collection';
-import { WeatherDisplay } from '../models/weather-display';
 import { WeatherService } from '../services/weather.service';
 import { WeatherData } from '../models/weather-data/weather-data';
 
@@ -15,14 +12,16 @@ import { WeatherData } from '../models/weather-data/weather-data';
 export class WeatherComponent implements OnInit {
 
   // TODO
-  // modify service to include data for different class objects
-  // modify WeatherDisplay to consist of subclasses rather than one ginat class
-  // Modify Weather Week to use bootstrap table instead of Material
-  // Modify Current Conditions to pull in data from service
+  // Update README
+  // Setup basic truthy tests
+  // remove unused CSS objects
+  // Create API key for OpenWeatherMapAPI
+  // Modify keys for project to be stored in CircleCI
+  // Create CircleCI deployment
+  // Add material progress spinner when loading
 
   lat: string;
   long: string;
-  weatherDisplay: WeatherDisplay = new WeatherDisplay();
   weatherData: WeatherData = new WeatherData();
   cardsDisplay = [
     {
@@ -114,8 +113,8 @@ export class WeatherComponent implements OnInit {
       .then((resolve) => {
         console.log(resolve);
         this.weatherData = resolve;
-        if (this.weatherDisplay.errorMessage !== undefined) {
-          alert(this.weatherDisplay.errorMessage);
+        if (this.weatherData.errorMessage !== undefined) {
+          alert(this.weatherData.errorMessage);
         }
       })
       .catch((error) => { alert(error); });

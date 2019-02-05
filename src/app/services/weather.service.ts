@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { WeatherDisplay } from '../models/weather-display';
 import { environment } from '../../environments/environment';
 import { WeatherData } from '../models/weather-data/weather-data';
 import { CurrentConditions } from '../models/current-conditions/current-conditions';

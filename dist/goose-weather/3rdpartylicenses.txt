@@ -120,11 +120,11 @@ THE SOFTWARE.
 
 @angular/material/dialog
 
+@angular/material/expansion
+
 @angular/material/grid-list
 
 @angular/material/snack-bar
-
-@angular/material/table
 
 @angular/material/tooltip
 
