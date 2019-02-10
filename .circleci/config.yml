@@ -22,6 +22,9 @@ jobs:
                 name: install nvm
                 command: curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
             - run:
+                name: reload bash
+                command: source ~/.bashrc
+            - run:
                 name: upgrade node
                 command: nvm install v10.15.0
             - restore_cache:
