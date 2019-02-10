@@ -64,4 +64,4 @@ typings/
 dist/*
 
 # environment file
-environments/environment.ts
+environment.ts
