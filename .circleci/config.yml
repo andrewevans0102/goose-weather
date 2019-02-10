@@ -22,9 +22,6 @@ jobs:
                 keys:
                     - v1-dependencies-{{ checksum "package.json" }}
             - run:
-                name: npm resolve node-sass install
-                command: npm install node-sass@4.5.3 --save
-            - run:
                 name: Install dependencies
                 command: npm install
             - save_cache:
