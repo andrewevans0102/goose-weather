@@ -7,7 +7,13 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "coverage-report": "ng test --code-coverage --watch=true",
+    "delete-coverage": "rm -rf coverage",
+    "code-coverage": "npm run delete-coverage && npm run coverage-report",
+    "build-prod": "ng build --prod",
+    "test-prod": "ng test --watch=false",
+    "firebase-deploy": "firebase deploy"
   },
   "private": true,
   "dependencies": {
@@ -22,6 +28,7 @@
     "@angular/platform-browser": "~7.2.0",
     "@angular/platform-browser-dynamic": "~7.2.0",
     "@angular/router": "~7.2.0",
+    "@ngxd/core": "^7.0.1",
     "bootstrap": "^4.2.1",
     "core-js": "^2.5.4",
     "hammerjs": "^2.0.8",

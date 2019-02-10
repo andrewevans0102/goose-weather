@@ -1,0 +1,15 @@
+.about {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  flex-wrap: wrap;
+  font-size: 1.5em;
+
+  ul {
+    width: 40em;
+  }
+
+  li {
+    text-align: left;
+  }
+}

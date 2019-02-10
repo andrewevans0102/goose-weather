@@ -2,34 +2,28 @@
   <div class="top-container page">
     <div class="first-row">
       <h1 class="display-4">Welcome to Goose Weather!</h1>
-      <img src='../../assets/goose.svg'>
-      <!-- <div>Icons made by <a href="https://www.flaticon.com/authors/smalllikeart" title="smalllikeart">smalllikeart</a> from <a href="https://www.flaticon.com/" 			    title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" 			    title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div> -->
+      <img src='./assets/goose.svg'>
     </div>
     <div class="second-row">
       <p class="lead">A Weather App that uses <a href="https://www.weather.gov/documentation/services-web-api">NOAA APIs</a> and the <a href="https://openweathermap.org/api">Open Weather Map API</a> to present weather information</p>
       <hr class="my-4">
     </div>
   </div>
-  <div>
-    <mat-grid-list cols="3" rowHeight="28em">
-      <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
-        <mat-card class="dashboard-card">
-          <mat-card-header>
-            <mat-card-title class="title">
-              {{card.title}}
-            </mat-card-title>
-          </mat-card-header>
-          <mat-card-content class="dashboard-card-content">
-            <div>
-              <app-current-conditions *ngIf="card.title==='Current Conditions'" [weatherData]="weatherData"></app-current-conditions>
-              <app-weather-week *ngIf="card.title==='Weather Week'" [weatherData]="weatherData"></app-weather-week>
-              <app-weather-hourly *ngIf="card.title==='Hourly Weather'" [weatherData]="weatherData"></app-weather-hourly>
-              <app-weather-discussion *ngIf="card.title==='Weather Discussion'" [weatherData]="weatherData"></app-weather-discussion>
-              <app-about *ngIf="card.title==='About'"></app-about>
-            </div>
-          </mat-card-content>
-        </mat-card>
-      </mat-grid-tile>
-    </mat-grid-list>
-  </div>
+  <mat-grid-list cols="3" rowHeight="26em"  *ngIf="displayValues ===  true; else elseBlock">
+    <mat-grid-tile *ngFor="let card of cards | async"  [colspan]="card.cols" [rowspan]="card.rows">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title class="title">
+            {{card.title}}
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <ng-container *ngxComponentOutlet="card.component; context: { weatherData: weatherData }"></ng-container>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+  <ng-template #elseBlock>
+    <mat-spinner [color]="spinnerColor" [diameter]="200"></mat-spinner>
+  </ng-template>
 </div>

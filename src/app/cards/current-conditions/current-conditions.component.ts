@@ -1,17 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { WeatherData } from 'src/app/models/weather-data/weather-data';
-
-export interface Tile {
-  color: string;
-  cols: number;
-  rows: number;
-  text: string;
-}
+import { Tile } from 'src/app/models/tile/tile';
 
 @Component({
   selector: 'app-current-conditions',
   templateUrl: './current-conditions.component.html',
-  styleUrls: ['./current-conditions.component.css']
+  styleUrls: ['./current-conditions.component.scss']
 })
 export class CurrentConditionsComponent implements OnInit {
 

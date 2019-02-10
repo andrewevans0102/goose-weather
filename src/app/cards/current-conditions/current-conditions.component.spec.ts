@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { CurrentConditionsComponent } from './current-conditions.component';
+import { AngularMaterialModule } from '../../../angular-material/angular-material.module';
 
 describe('CurrentConditionsComponent', () => {
   let component: CurrentConditionsComponent;
@@ -8,7 +8,12 @@ describe('CurrentConditionsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CurrentConditionsComponent ]
+      declarations: [
+          CurrentConditionsComponent
+        ],
+      imports: [
+        AngularMaterialModule
+      ]
     })
     .compileComponents();
   }));

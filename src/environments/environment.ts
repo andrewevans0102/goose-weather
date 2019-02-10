@@ -4,8 +4,7 @@
 
 export const environment = {
   production: false,
-  // TODO generate new key for this app with Open Weather Map Account
-  openWeatherMapAPIKey: 'd76ec4745a2fe3f2950cca0095f12ca3',
+  openWeatherMapAPIKey: '9722c5aa290524f2659c9eeb513ee78f',
   noaaMetaDataEndpoint: 'https://api.weather.gov/points/'
 };
 

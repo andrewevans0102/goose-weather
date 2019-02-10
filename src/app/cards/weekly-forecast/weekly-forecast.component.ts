@@ -2,11 +2,11 @@ import { Component, Input } from '@angular/core';
 import { WeatherData } from 'src/app/models/weather-data/weather-data';
 
 @Component({
-  selector: 'app-weather-discussion',
-  templateUrl: './weather-discussion.component.html',
-  styleUrls: ['./weather-discussion.component.scss']
+  selector: 'app-weekly-forecast',
+  templateUrl: './weekly-forecast.component.html',
+  styleUrls: ['./weekly-forecast.component.scss']
 })
-export class WeatherDiscussionComponent {
+export class WeeklyForecastComponent {
 
   data = new WeatherData();
 

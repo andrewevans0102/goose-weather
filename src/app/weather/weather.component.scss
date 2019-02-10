@@ -28,13 +28,14 @@
 
 .page {
   background-color: lightgray;
+  margin-bottom: 1em;
 }
 
 .top-section {
   display: flex;
   align-items: left;
   flex-direction: start;
-  margin-top: 2em;
+  // margin-top: 2em;
 }
 
 .top-container {
@@ -52,4 +53,8 @@
 .second-row {
   display: flex;
   margin-top: 1em;
+}
+
+mat-spinner {
+  margin: 20em;
 }

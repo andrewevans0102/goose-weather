@@ -62,3 +62,6 @@ typings/
 
 # build files
 dist/*
+
+# environment file
+.environment.ts

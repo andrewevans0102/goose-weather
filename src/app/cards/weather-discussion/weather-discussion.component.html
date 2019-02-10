@@ -1,13 +1,15 @@
-<mat-accordion>
-  <mat-expansion-panel *ngFor="let week of data.weeklyForecast">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        <span>{{week.name}}</span>
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <span class="panel-content">{{week.detailedForecast}}</span>
-  </mat-expansion-panel>
-</mat-accordion>
+<div class="weather-discussion">
+  <mat-accordion>
+    <mat-expansion-panel *ngFor="let week of data.weeklyForecast">
+      <mat-expansion-panel-header expandedHeight="2em">
+        <mat-panel-title>
+          <span>{{week.name}}</span>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <span class="panel-content">{{week.detailedForecast}}</span>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
 
 
 

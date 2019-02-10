@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { WeatherData } from '../models/weather-data/weather-data';
-import { CurrentConditions } from '../models/current-conditions/current-conditions';
 import { WeeklyForecast } from '../models/weekly-forecast/weekly-forecast';
 import { HourlyForecast } from '../models/hourly-forecast/hourly-forecast';
 
@@ -37,20 +36,7 @@ export class WeatherService {
       this.weatherData.currentConditions.sunrise = this.createDateFromMillseconds(currentWeather.sys.sunrise);
       this.weatherData.currentConditions.sunset = this.createDateFromMillseconds(currentWeather.sys.sunset);
       this.weatherData.currentConditions.icon = this.selectCurrentConditionsIcon(currentWeather.weather[0].icon);
-
-      if (currentWeather.wind.speed >= 0 && currentWeather.wind.speed < 90) {
-        // first quadrant
-        this.weatherData.currentConditions.windDirection = 'NE';
-      } else if (currentWeather.wind.speed >= 90 && currentWeather.wind.speed < 180) {
-        // second quadrant
-        this.weatherData.currentConditions.windDirection = 'SE';
-      } else if (currentWeather.wind.speed >= 180 && currentWeather.wind.speed < 270) {
-        // second quadrant
-        this.weatherData.currentConditions.windDirection = 'SW';
-      } else if (currentWeather.wind.speed >= 270 && currentWeather.wind.speed <= 360) {
-        // second quadrant
-        this.weatherData.currentConditions.windDirection = 'NW';
-      }
+      this.weatherData.currentConditions.windDirection = this.getWindDirectionFromDegreeAngle(currentWeather.wind.speed);
 
       const weeklyForecast: any = await this.getNoaaWeeklyForecast(this.weatherData.NoaaWeeklyForecastUrl);
       if (weeklyForecast instanceof Error) {
@@ -70,6 +56,27 @@ export class WeatherService {
     return new Promise<WeatherData>((resolve) => {
       resolve(this.weatherData);
     });
+  }
+
+  getWindDirectionFromDegreeAngle(degreeAngle: number): string {
+    // Open Weather Map API returns an angle so where it falls in with cartesian quadrants is the direction here
+    // helpful background is here https://en.wikipedia.org/wiki/Wind_direction
+    let windDirection: string;
+    if (degreeAngle >= 0 && degreeAngle < 90) {
+      // first quadrant
+      windDirection = 'NE';
+    } else if (degreeAngle >= 90 && degreeAngle < 180) {
+      // second quadrant
+      windDirection = 'SE';
+    } else if (degreeAngle >= 180 && degreeAngle < 270) {
+      // second quadrant
+      windDirection = 'SW';
+    } else if (degreeAngle >= 270 && degreeAngle <= 360) {
+      // second quadrant
+      windDirection = 'NW';
+    }
+
+    return windDirection;
   }
 
   createDateFromMillseconds(milliseconds: number): string {

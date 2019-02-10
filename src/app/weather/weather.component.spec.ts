@@ -8,8 +8,10 @@ import {
   MatIconModule,
   MatMenuModule,
 } from '@angular/material';
-
+import { NgxdModule } from '@ngxd/core';
 import { WeatherComponent } from './weather.component';
+import { HttpClientModule } from '@angular/common/http';
+import { AngularMaterialModule } from '../../angular-material/angular-material.module';
 
 describe('WeatherComponent', () => {
   let component: WeatherComponent;
@@ -26,6 +28,9 @@ describe('WeatherComponent', () => {
         MatGridListModule,
         MatIconModule,
         MatMenuModule,
+        NgxdModule,
+        HttpClientModule,
+        AngularMaterialModule
       ]
     }).compileComponents();
   }));

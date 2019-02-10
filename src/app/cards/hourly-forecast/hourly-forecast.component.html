@@ -1,0 +1,39 @@
+<!-- <table class="table-bordered table-responsive-sm">
+  <td *ngFor="let hour of data.hourlyForecast">
+    <tr><span class="hour">{{hour.time}}</span></tr>
+    <tr><img src={{hour.icon}}></tr>
+    <tr> <b>{{hour.temp}}</b></tr>
+    <tr>{{hour.windSpeed}} {{hour.windDirection}}</tr>
+  </td>
+</table> -->
+
+<!-- period = '';
+temp = '';
+icon = '';
+windSpeed = '';
+windDirection = '';
+time = ''; -->
+
+<div class="hourly-forecast">
+  <table mat-table [dataSource]="data.hourlyForecast" class="mat-elevation-z8">
+    <ng-container matColumnDef="Time">
+      <th mat-header-cell *matHeaderCellDef> <span class="time">Time</span> </th>
+      <td mat-cell *matCellDef="let forecast"> {{forecast.time}} </td>
+    </ng-container>
+    <ng-container matColumnDef="Temp">
+      <th mat-header-cell *matHeaderCellDef> <span>Temp</span> </th>
+      <td mat-cell *matCellDef="let forecast"> {{forecast.temp}} </td>
+    </ng-container>
+    <ng-container matColumnDef="Wind">
+      <th mat-header-cell *matHeaderCellDef> <span>Wind</span> </th>
+      <td mat-cell *matCellDef="let forecast"> {{forecast.windSpeed}} {{forecast.windDirection}} </td>
+    </ng-container>
+    <ng-container matColumnDef="Condition">
+      <th mat-header-cell *matHeaderCellDef> <span>Condition</span> </th>
+      <td mat-cell *matCellDef="let forecast"> <img src={{forecast.icon}}> </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

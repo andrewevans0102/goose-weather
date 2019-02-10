@@ -1,15 +1,15 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { WeatherDiscussionComponent } from './weather-discussion.component';
+import { HourlyForecastComponent } from './hourly-forecast.component';
 import { AngularMaterialModule } from '../../../angular-material/angular-material.module';
 
-describe('WeatherDiscussionComponent', () => {
-  let component: WeatherDiscussionComponent;
-  let fixture: ComponentFixture<WeatherDiscussionComponent>;
+describe('HourlyForecastComponent', () => {
+  let component: HourlyForecastComponent;
+  let fixture: ComponentFixture<HourlyForecastComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        WeatherDiscussionComponent
+        HourlyForecastComponent
       ],
       imports: [
         AngularMaterialModule
@@ -19,7 +19,7 @@ describe('WeatherDiscussionComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(WeatherDiscussionComponent);
+    fixture = TestBed.createComponent(HourlyForecastComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

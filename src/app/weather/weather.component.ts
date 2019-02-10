@@ -3,111 +3,113 @@ import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { WeatherService } from '../services/weather.service';
 import { WeatherData } from '../models/weather-data/weather-data';
+import { CurrentConditionsComponent } from '../cards/current-conditions/current-conditions.component';
+import { WeatherDiscussionComponent } from '../cards/weather-discussion/weather-discussion.component';
+import { WeeklyForecastComponent } from '../cards/weekly-forecast/weekly-forecast.component';
+import { HourlyForecastComponent } from '../cards/hourly-forecast/hourly-forecast.component';
+import { AboutDesktopComponent } from '../cards/about-desktop/about-desktop.component';
+import { AboutMobileComponent } from '../cards/about-mobile/about-mobile.component';
 
 @Component({
   selector: 'app-weather',
   templateUrl: './weather.component.html',
-  styleUrls: ['./weather.component.css']
+  styleUrls: ['./weather.component.scss']
 })
 export class WeatherComponent implements OnInit {
 
   // TODO
-  // Update README
-  // Setup basic truthy tests
-  // remove unused CSS objects
   // Create API key for OpenWeatherMapAPI
   // Modify keys for project to be stored in CircleCI
   // Create CircleCI deployment
-  // Add material progress spinner when loading
 
   lat: string;
   long: string;
   weatherData: WeatherData = new WeatherData();
-  cardsDisplay = [
-    {
-      title: 'Current Conditions',
-      cols: 1,
-      rows: 1
-    },
-    {
-      title: 'About',
-      cols: 1,
-      rows: 1
-    },
-    {
-      title: 'Weather Discussion',
-      cols: 1,
-      rows: 2
-    },
-    {
-      title: 'Hourly Weather',
-      cols: 2,
-      rows: 1
-    },
-    {
-      title: 'Weather Week',
-      cols: 3,
-      rows: 1
-    }
-  ];
+  cardsDesktop = [];
+  cardsMobile = [];
+  displayValues = false;
+  spinnerColor = 'primary';
+  spinnerSize = 8;
 
-  /** Based on the screen size, switch from standard to one column per row */
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
       if (matches) {
-        for (const card of this.cardsDisplay) {
-          if (card.title === 'Current Conditions') {
-            card.cols = 3;
-            card.rows = 1;
-          } else if (card.title === 'About') {
-            card.cols = 3;
-            card.rows = 2;
-          } else if (card.title === 'Weather Discussion') {
-            card.cols = 3;
-            card.rows = 2;
-          } else if (card.title === 'Hourly Weather') {
-            card.cols = 3;
-            card.rows = 1;
-          } else if (card.title === 'Weather Week') {
-            card.cols = 3;
-            card.rows = 1;
-          }
-        }
+        return this.cardsMobile;
       } else {
-        this.cardsDisplay = [
-          {
-            title: 'Current Conditions',
-            cols: 1,
-            rows: 1
-          },
-          {
-            title: 'About',
-            cols: 1,
-            rows: 1
-          },
-          {
-            title: 'Weather Discussion',
-            cols: 1,
-            rows: 2
-          },
-          {
-            title: 'Hourly Weather',
-            cols: 2,
-            rows: 1
-          },
-          {
-            title: 'Weather Week',
-            cols: 3,
-            rows: 1
-          }
-        ];
+        return this.cardsDesktop;
       }
-
-      return this.cardsDisplay;
     })
   );
 
-  constructor(private breakpointObserver: BreakpointObserver, public weatherService: WeatherService) {}
+  constructor(private breakpointObserver: BreakpointObserver, public weatherService: WeatherService) {
+    // desktop view
+    this.cardsDesktop = [
+      {
+        title: 'Current Conditions',
+        cols: 1,
+        rows: 1,
+        component: CurrentConditionsComponent
+      },
+      {
+        title: 'Hourly Forecast',
+        cols: 1,
+        rows: 1,
+        component: HourlyForecastComponent
+      },
+      {
+        title: 'Weather Discussion',
+        cols: 1,
+        rows: 2,
+        component: WeatherDiscussionComponent
+      },
+      {
+        title: 'Weekly Forecast',
+        cols: 2,
+        rows: 1,
+        component: WeeklyForecastComponent
+      },
+      {
+        title: 'About',
+        cols: 3,
+        rows: 1,
+        component: AboutDesktopComponent
+      }
+    ];
+
+    // Mobile View
+    this.cardsMobile = [
+      {
+        title: 'Current Conditions',
+        cols: 3,
+        rows: 1,
+        component: CurrentConditionsComponent
+      },
+      {
+        title: 'Hourly Forecast',
+        cols: 3,
+        rows: 1,
+        component: HourlyForecastComponent
+      },
+      {
+        title: 'Weather Discussion',
+        cols: 3,
+        rows: 2,
+        component: WeatherDiscussionComponent
+      },
+      {
+        title: 'Weekly Forecast',
+        cols: 3,
+        rows: 1,
+        component: WeeklyForecastComponent
+      },
+      {
+        title: 'About',
+        cols: 3,
+        rows: 2,
+        component: AboutMobileComponent
+      }
+    ];
+  }
 
   ngOnInit(): void {
     try {
@@ -123,23 +125,10 @@ export class WeatherComponent implements OnInit {
     this.lat = position.coords.latitude.toFixed(4).toString();
     this.long = position.coords.longitude.toFixed(4).toString();
 
-    // this.weatherService.getWeather(this.lat, this.long)
-    // .then(
-    //   function(success) {
-    //     this.weatherDisplay = success;
-    //     if (this.weatherDisplay.errorMessage !== undefined) {
-    //       alert(this.weatherDisplay.errorMessage);
-    //     }
-    //   }.bind(this),
-    //   function(error) {
-    //     alert(error);
-    //     this.weatherDisplay = new WeatherDisplay();
-    //   }.bind(this)
-    // );
-
     this.weatherService.getWeather(this.lat, this.long)
       .then((resolve) => {
         this.weatherData = resolve;
+        this.displayValues = true;
         if (this.weatherData.errorMessage !== '') {
           alert(this.weatherData.errorMessage);
         }

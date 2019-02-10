@@ -5,3 +5,8 @@ p {
   align-content: center;
   margin-top: 1em;
 }
+
+::ng-deep mat-grid-list {
+  overflow: auto;
+}
+
