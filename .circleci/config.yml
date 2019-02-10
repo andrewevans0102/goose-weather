@@ -18,19 +18,12 @@ jobs:
             - run:
                 name: load in environment variables
                 command: ./deploy_config.sh
-            - restore_cache:
-                keys:
-                    - v1-dependencies-{{ checksum "package.json" }}
             - run:
                 name: fix node-sass
                 command: npm rebuild node-sass --force
             - run:
                 name: Install dependencies
                 command: npm install
-            - save_cache:
-                key: v1-dependencies-{{ checksum "package.json" }}
-                paths:
-                    - node_modules
             - run:
                 name: Building
                 command: npm run build-prod
