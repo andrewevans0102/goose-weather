@@ -18,6 +18,12 @@ jobs:
             - run:
                 name: load in environment variables
                 command: ./deploy_config.sh
+            - run:
+                name: install nvm
+                command: curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+            - run:
+                name: upgrade node
+                command: nvm install v10.15.0
             - restore_cache:
                 keys:
                     - v1-dependencies-{{ checksum "package.json" }}
