@@ -65,3 +65,6 @@ dist/*
 
 # environment file
 src/environments/environment.ts
+
+# package lock json file
+package-lock.json
