@@ -3,7 +3,7 @@ jobs:
     build:
         working_directory: ~/project
         docker:
-            - image: saf33r/node-ruby-sass
+            - image: circleci/node
         steps:
             - checkout
             - run:
