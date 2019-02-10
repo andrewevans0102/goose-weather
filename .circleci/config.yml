@@ -19,11 +19,11 @@ jobs:
                 name: load in environment variables
                 command: ./deploy_config.sh
             - run:
-                name: fix node-sass
-                command: npm rebuild node-sass --force
-            - run:
                 name: Install dependencies
                 command: npm install
+            - run:
+                name: fix node-sass
+                command: npm rebuild node-sass --force
             - run:
                 name: Building
                 command: npm run build-prod
