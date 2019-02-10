@@ -32,6 +32,7 @@
     "core-js": "^2.5.4",
     "hammerjs": "^2.0.8",
     "node-sass": "^4.5.3",
+    "puppeteer": "^1.12.2",
     "rxjs": "~6.3.3",
     "terser": "^3.14.1",
     "tslib": "^1.9.0",
