@@ -23,7 +23,7 @@ jobs:
                     - v1-dependencies-{{ checksum "package.json" }}
             - run:
                 name: npm resolve node-sass install
-                command: npm rebuild node-sass
+                command: npm install node-sass --save
             - run:
                 name: Install dependencies
                 command: npm install
