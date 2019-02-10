@@ -22,11 +22,11 @@ jobs:
                 keys:
                     - v1-dependencies-{{ checksum "package.json" }}
             - run:
-                name: resolve error with npx package
-                command: npx npm-force-resolutions
-            - run:
                 name: Install dependencies
                 command: npm install
+            - run:
+                name: resolve error with npx package
+                command: npx npm-force-resolutions
             - save_cache:
                 key: v1-dependencies-{{ checksum "package.json" }}
                 paths:
