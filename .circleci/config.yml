@@ -32,14 +32,14 @@ jobs:
                 paths:
                     - node_modules
             - run:
+                name: Building
+                command: npm run build-prod
+            - run:
                 name: Linting
                 command: npm run lint
             - run:
                 name: Testing
                 command: npm run test-prod
-            - run:
-                name: Building
-                command: npm run build-prod
             - save_cache:
                 key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
                 paths:
