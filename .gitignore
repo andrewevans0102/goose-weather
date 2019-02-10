@@ -64,7 +64,7 @@ typings/
 dist/*
 
 # environment file
-src/environments/environment.ts
+src/environments/local_environment.ts
 
 # package lock json file
 package-lock.json

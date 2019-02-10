@@ -8,3 +8,6 @@ cd src/environments
 sed -i 's/\(OPEN_WEATHER_MAP_API_KEY\)/'$OPEN_WEATHER_MAP_API_KEY'/' environment.prod.ts
 # console log the file to verify that the values were set
 cat environment.prod.ts
+sed -i 's/\(OPEN_WEATHER_MAP_API_KEY\)/'$OPEN_WEATHER_MAP_API_KEY'/' environment.ts
+# console log the file to verify that the values were set
+cat environment.prod.ts
