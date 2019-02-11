@@ -9,6 +9,9 @@ import { WeeklyForecastComponent } from '../cards/weekly-forecast/weekly-forecas
 import { HourlyForecastComponent } from '../cards/hourly-forecast/hourly-forecast.component';
 import { AboutDesktopComponent } from '../cards/about-desktop/about-desktop.component';
 import { AboutMobileComponent } from '../cards/about-mobile/about-mobile.component';
+import { Store } from '@ngrx/store';
+import { AppState } from '../reducers';
+import { Load } from '../actions/weather.actions';
 
 @Component({
   selector: 'app-weather',
@@ -16,11 +19,6 @@ import { AboutMobileComponent } from '../cards/about-mobile/about-mobile.compone
   styleUrls: ['./weather.component.css']
 })
 export class WeatherComponent implements OnInit {
-
-  // TODO
-  // Create API key for OpenWeatherMapAPI
-  // Modify keys for project to be stored in CircleCI
-  // Create CircleCI deployment
 
   lat: string;
   long: string;
@@ -41,7 +39,7 @@ export class WeatherComponent implements OnInit {
     })
   );
 
-  constructor(private breakpointObserver: BreakpointObserver, public weatherService: WeatherService) {
+  constructor(private breakpointObserver: BreakpointObserver, public weatherService: WeatherService, private store: Store<AppState>) {
     // desktop view
     this.cardsDesktop = [
       {
@@ -112,6 +110,13 @@ export class WeatherComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.store
+      .pipe(
+        map(state => this.weatherData = state.weather.weatherData)
+      );
+
+
     try {
       navigator.geolocation.getCurrentPosition((position) => {
         this.savePosition(position);
@@ -129,6 +134,9 @@ export class WeatherComponent implements OnInit {
       .then((resolve) => {
         this.weatherData = resolve;
         this.displayValues = true;
+
+        this.store.dispatch(new Load({weatherData: this.weatherData}));
+
         if (this.weatherData.errorMessage !== '') {
           alert(this.weatherData.errorMessage);
         }
