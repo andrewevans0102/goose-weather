@@ -1,5 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { WeeklyForecastComponent } from './weekly-forecast.component';
+import { StoreModule } from '@ngrx/store';
+import { reducers, metaReducers } from 'src/app/reducers';
 
 describe('WeeklyForecastComponent', () => {
   let component: WeeklyForecastComponent;
@@ -7,7 +9,12 @@ describe('WeeklyForecastComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ WeeklyForecastComponent ]
+      declarations: [
+        WeeklyForecastComponent
+      ],
+      imports : [
+        StoreModule.forRoot(reducers, { metaReducers }),
+      ]
     })
     .compileComponents();
   }));

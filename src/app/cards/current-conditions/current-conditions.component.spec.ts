@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CurrentConditionsComponent } from './current-conditions.component';
 import { AngularMaterialModule } from '../../../angular-material/angular-material.module';
+import { StoreModule } from '@ngrx/store';
+import { reducers, metaReducers } from 'src/app/reducers';
 
 describe('CurrentConditionsComponent', () => {
   let component: CurrentConditionsComponent;
@@ -12,7 +14,8 @@ describe('CurrentConditionsComponent', () => {
           CurrentConditionsComponent
         ],
       imports: [
-        AngularMaterialModule
+        AngularMaterialModule,
+        StoreModule.forRoot(reducers, { metaReducers })
       ]
     })
     .compileComponents();

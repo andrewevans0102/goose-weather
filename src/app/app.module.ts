@@ -9,7 +9,6 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { CurrentConditionsComponent } from './cards/current-conditions/current-conditions.component';
 import { WeatherDiscussionComponent } from './cards/weather-discussion/weather-discussion.component';
 import { HttpClientModule } from '@angular/common/http';
-import { NgxdModule } from '@ngxd/core';
 import { MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
 import { WeeklyForecastComponent } from './cards/weekly-forecast/weekly-forecast.component';
 import { HourlyForecastComponent } from './cards/hourly-forecast/hourly-forecast.component';
@@ -46,7 +45,6 @@ import { environment } from '../environments/environment';
     AngularMaterialModule,
     LayoutModule,
     HttpClientModule,
-    NgxdModule,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,

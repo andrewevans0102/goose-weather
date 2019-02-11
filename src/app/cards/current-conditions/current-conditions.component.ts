@@ -3,7 +3,6 @@ import { WeatherData } from 'src/app/models/weather-data/weather-data';
 import { Tile } from 'src/app/models/tile/tile';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/reducers';
-import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 @Component({
