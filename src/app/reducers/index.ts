@@ -21,7 +21,7 @@ export interface AppState {
   weather: WeatherState;
 }
 
-function weatherReducer(state: WeatherState = initialWeatherState, action): WeatherState {
+export function weatherReducer(state: WeatherState = initialWeatherState, action): WeatherState {
   switch (action.type) {
     case WeatherActionTypes.LoadAction:
       return {
