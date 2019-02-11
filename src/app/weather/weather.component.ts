@@ -13,7 +13,7 @@ import { AboutMobileComponent } from '../cards/about-mobile/about-mobile.compone
 @Component({
   selector: 'app-weather',
   templateUrl: './weather.component.html',
-  styleUrls: ['./weather.component.scss']
+  styleUrls: ['./weather.component.css']
 })
 export class WeatherComponent implements OnInit {
 

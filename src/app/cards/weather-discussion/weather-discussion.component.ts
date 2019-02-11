@@ -4,7 +4,7 @@ import { WeatherData } from 'src/app/models/weather-data/weather-data';
 @Component({
   selector: 'app-weather-discussion',
   templateUrl: './weather-discussion.component.html',
-  styleUrls: ['./weather-discussion.component.scss']
+  styleUrls: ['./weather-discussion.component.css']
 })
 export class WeatherDiscussionComponent {
 

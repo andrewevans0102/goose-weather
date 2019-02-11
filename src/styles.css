@@ -1,12 +1,6 @@
+@import "~bootstrap/dist/css/bootstrap.css";
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
 html {
   background-color: lightgray;
-}
-
-::ng-deep mat-card-content {
-  mat-accordion {
-    height: 10em;
-    overflow: scroll;
-  }
 }

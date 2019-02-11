@@ -4,7 +4,7 @@ import { WeatherData } from 'src/app/models/weather-data/weather-data';
 @Component({
   selector: 'app-hourly-forecast',
   templateUrl: './hourly-forecast.component.html',
-  styleUrls: ['./hourly-forecast.component.scss']
+  styleUrls: ['./hourly-forecast.component.css']
 })
 export class HourlyForecastComponent {
 

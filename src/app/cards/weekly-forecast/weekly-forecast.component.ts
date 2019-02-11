@@ -4,7 +4,7 @@ import { WeatherData } from 'src/app/models/weather-data/weather-data';
 @Component({
   selector: 'app-weekly-forecast',
   templateUrl: './weekly-forecast.component.html',
-  styleUrls: ['./weekly-forecast.component.scss']
+  styleUrls: ['./weekly-forecast.component.css']
 })
 export class WeeklyForecastComponent {
 

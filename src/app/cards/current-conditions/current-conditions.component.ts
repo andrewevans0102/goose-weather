@@ -5,7 +5,7 @@ import { Tile } from 'src/app/models/tile/tile';
 @Component({
   selector: 'app-current-conditions',
   templateUrl: './current-conditions.component.html',
-  styleUrls: ['./current-conditions.component.scss']
+  styleUrls: ['./current-conditions.component.css']
 })
 export class CurrentConditionsComponent implements OnInit {
 
