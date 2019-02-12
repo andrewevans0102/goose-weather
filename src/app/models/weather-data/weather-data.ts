@@ -11,4 +11,5 @@ export class WeatherData {
   NoaaWeeklyForecastUrl = '';
   NoaaHourlyForecastUrl = '';
   errorMessage = '';
+  weatherDate: Date;
 }

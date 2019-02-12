@@ -130,7 +130,13 @@ export class WeatherComponent implements OnInit {
     this.lat = position.coords.latitude.toFixed(4).toString();
     this.long = position.coords.longitude.toFixed(4).toString();
 
-    this.weatherService.getWeather(this.lat, this.long)
+    // check local storage to see if value is saved
+    this.weatherData = this.getWeatherFromLocalStorage();
+    console.log('weatherData found');
+    console.log(this.weatherData);
+    if (this.weatherData.weatherDate === undefined) {
+      console.log('date undefined');
+      this.weatherService.getWeather(this.lat, this.long)
       .then((resolve) => {
         this.weatherData = resolve;
         this.displayValues = true;
@@ -142,6 +148,25 @@ export class WeatherComponent implements OnInit {
         }
       })
       .catch((error) => { alert(error); });
+    } else {
+      console.log('date not undefined');
+      this.store.dispatch(new Load({weatherData: this.weatherData}));
+      this.displayValues = true;
+    }
+  }
 
+  getWeatherFromLocalStorage(): WeatherData {
+    let weatherDataLocalStorage = JSON.parse(localStorage.getItem('weather'));
+
+    // time from 5 minuts ago
+    const nowDate = new Date();
+    const lastFiveMin = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), nowDate.getHours(),
+      nowDate.getMinutes() - 5);
+    if ( weatherDataLocalStorage.weatherDate !== undefined &&
+          weatherDataLocalStorage.timeRetrieved > lastFiveMin) {
+      localStorage.removeItem('weather');
+      weatherDataLocalStorage = new WeatherData();
+    }
+    return weatherDataLocalStorage;
   }
 }

@@ -49,6 +49,9 @@ export class WeatherService {
         throw hourlyForecast;
       }
       this.weatherData.hourlyForecast = this.createHourlyForecastFromNoaaData(hourlyForecast.properties.periods);
+
+      // save time that the weather was retrieved
+      this.weatherData.weatherDate = new Date();
     } catch (error) {
       this.weatherData.errorMessage = error.message;
     }
