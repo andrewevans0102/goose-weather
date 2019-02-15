@@ -3,13 +3,20 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { Observable } from 'rxjs';
 
 import { WeatherEffects } from './weather.effects';
+import { StoreModule } from '@ngrx/store';
+import { reducers, metaReducers } from '../reducers';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('WeatherEffects', () => {
-  let actions$: Observable<any>;
+  const actions$: Observable<any> = new Observable<any>();
   let effects: WeatherEffects;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [
+        StoreModule.forRoot(reducers, { metaReducers }),
+        HttpClientModule
+      ],
       providers: [
         WeatherEffects,
         provideMockActions(() => actions$)
