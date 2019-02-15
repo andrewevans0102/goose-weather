@@ -1,24 +1,8 @@
-<!-- <table class="table-bordered table-responsive-sm">
-  <td *ngFor="let hour of data.hourlyForecast">
-    <tr><span class="hour">{{hour.time}}</span></tr>
-    <tr><img src={{hour.icon}}></tr>
-    <tr> <b>{{hour.temp}}</b></tr>
-    <tr>{{hour.windSpeed}} {{hour.windDirection}}</tr>
-  </td>
-</table> -->
-
-<!-- period = '';
-temp = '';
-icon = '';
-windSpeed = '';
-windDirection = '';
-time = ''; -->
-
 <div class="hourly-forecast">
   <table mat-table [dataSource]="data.hourlyForecast" class="mat-elevation-z8">
     <ng-container matColumnDef="Time">
-      <th mat-header-cell *matHeaderCellDef> <span class="time">Time</span> </th>
-      <td mat-cell *matCellDef="let forecast"> {{forecast.time}} </td>
+      <th mat-header-cell *matHeaderCellDef> <span>Time</span> </th>
+      <td mat-cell *matCellDef="let forecast"> <span class="time">{{forecast.time}}</span> </td>
     </ng-container>
     <ng-container matColumnDef="Temp">
       <th mat-header-cell *matHeaderCellDef> <span>Temp</span> </th>

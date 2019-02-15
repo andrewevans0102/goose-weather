@@ -4,9 +4,22 @@ p {
   align-items: center;
   align-content: center;
   margin-top: 1em;
+  flex-wrap: wrap;
 }
 
 ::ng-deep mat-grid-list {
   overflow: auto;
+}
+
+::ng-deep mat-grid-tile {
+  background: lightblue;
+  flex-wrap: wrap;
+}
+
+.title {
+  padding-right: 1em;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
 }
 

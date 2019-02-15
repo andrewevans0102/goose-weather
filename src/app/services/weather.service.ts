@@ -53,7 +53,7 @@ export class WeatherService {
       // save time that the weather was retrieved
       this.weatherData.weatherDate = new Date();
     } catch (error) {
-      this.weatherData.errorMessage = error.message;
+      throw error;
     }
 
     return new Promise<WeatherData>((resolve) => {
@@ -89,15 +89,33 @@ export class WeatherService {
     // Eastern Standard is 5 hours behind UTC
     const dMill = new Date(0);
     dMill.setUTCSeconds(milliseconds);
-    let dateMinutes = String(dMill.getUTCMinutes());
+    let dateMinutes = '';
+    let dateHours = '';
+    let dateFormatted = '';
+
+    // minutes
+    dateMinutes = String(dMill.getUTCMinutes());
     if (dateMinutes.length < 2) {
       dateMinutes = '0' + dateMinutes;
     }
-    let dateHours = (String(dMill.getUTCHours() - 5));
+
+    // hours
+    const hourNumber = dMill.getUTCHours() - 5;
+    if (hourNumber > 12) {
+      dateHours = String(hourNumber - 12);
+    } else {
+      dateHours = String(hourNumber);
+    }
     if (dateHours.length < 2) {
       dateHours = '0' + dateHours;
     }
-    const dateFormatted = dateHours + ':' + dateMinutes;
+
+    if (hourNumber > 12) {
+      dateFormatted = dateHours + ':' + dateMinutes + ' PM';
+    } else {
+      dateFormatted = dateHours + ':' + dateMinutes + ' AM';
+    }
+
     return dateFormatted;
   }
 
@@ -200,11 +218,22 @@ export class WeatherService {
       hourlyForecast.icon = period.icon;
       // Time
       const startDate: Date = new Date(period.startTime);
-      let hours = (startDate.getHours()).toString();
-      if (hours.length === 1) {
-        hours = 0 + hours;
+      const hoursNumber = startDate.getHours();
+      let hoursDisplay = '';
+      if (hoursNumber > 12) {
+        hoursDisplay = String(hoursNumber - 12);
+      } else {
+        hoursDisplay = String(hoursNumber);
       }
-      hourlyForecast.time = hours + ':00';
+      if (hoursDisplay.length === 1) {
+        hoursDisplay = 0 + hoursDisplay;
+      }
+      if (startDate.getHours() > 12) {
+        hourlyForecast.time = hoursDisplay + ':00' + ' PM';
+      } else {
+        hourlyForecast.time = hoursDisplay + ':00' + ' AM';
+      }
+
       hourlyForecastTotal.push(hourlyForecast);
       counter++;
     }

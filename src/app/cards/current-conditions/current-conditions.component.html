@@ -1,13 +1,32 @@
 <mat-grid-list cols="4" rowHeight="4em">
-  <mat-grid-tile *ngFor="let tile of tiles" [colspan]="tile.cols" [rowspan]="tile.rows" [style.background]="tile.color">
-    <p *ngIf="tile.text==='Latitude: '">{{tile.text}} {{data.currentConditions.latitude}}</p>
-    <p *ngIf="tile.text==='Longitude: '">{{tile.text}} {{data.currentConditions.longitude}}</p>
-    <p *ngIf="tile.text==='City: '">{{tile.text}} {{data.currentConditions.city}}</p>
-    <p *ngIf="tile.text==='State: '">{{tile.text}} {{data.currentConditions.state}}</p>
-    <p *ngIf="tile.text==='Temp: '">{{tile.text}} {{data.currentConditions.temp}}°</p>
-    <p *ngIf="tile.text==='Wind: '">{{tile.text}} {{data.currentConditions.windSpeed}} {{data.currentConditions.windDirection}}</p>
-    <p *ngIf="tile.text==='Sunrise: '">{{tile.text}} {{data.currentConditions.sunrise}}</p>
-    <p *ngIf="tile.text==='Sunset: '">{{tile.text}} {{data.currentConditions.sunset}}</p>
-    <img src={{data.currentConditions.icon}} *ngIf="tile.text==='image'">
+  <mat-grid-tile [colspan]="2" [rowspan]="1">
+    <p><span class="title">Latitude: </span> {{ data.currentConditions.latitude }}</p>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="2" [rowspan]="1">
+    <p><span class="title">Longitude: </span> {{ data.currentConditions.longitude }}</p>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="2" [rowspan]="1">
+    <p><span class="title">City: </span> {{ data.currentConditions.city }}</p>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="2" [rowspan]="1">
+    <p><span class="title">State: </span> {{ data.currentConditions.state }}</p>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="1" [rowspan]="1">
+    <p><span class="title">Temp: </span> {{ data.currentConditions.temp }}</p>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="1" [rowspan]="1">
+    <p><span class="title">Wind: </span> {{ data.currentConditions.windSpeed }} {{ data.currentConditions.windDirection }}</p>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="2" [rowspan]="2">
+    <img src={{data.currentConditions.icon}}>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="1" [rowspan]="1">
+    <p><span class="title">Sunrise: </span> {{ data.currentConditions.sunrise }} </p>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="1" [rowspan]="1">
+    <p><span class="title">Sunset: </span> {{ data.currentConditions.sunset }} </p>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="4" [rowspan]="1">
+    <p><span class="title">Retrieved: </span> {{ data.weatherDate | date:'short' }} </p>
   </mat-grid-tile>
 </mat-grid-list>

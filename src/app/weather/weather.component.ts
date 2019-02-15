@@ -12,6 +12,8 @@ import { AboutMobileComponent } from '../cards/about-mobile/about-mobile.compone
 import { Store } from '@ngrx/store';
 import { AppState } from '../reducers';
 import { Load } from '../actions/weather.actions';
+import { LoadLocations } from '../actions/location.actions';
+import { LocationData } from '../models/location-data/location-data';
 
 @Component({
   selector: 'app-weather',
@@ -28,6 +30,7 @@ export class WeatherComponent implements OnInit {
   displayValues = false;
   spinnerColor = 'primary';
   spinnerSize = 8;
+  locationData: LocationData = new LocationData();
 
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
@@ -127,46 +130,9 @@ export class WeatherComponent implements OnInit {
   }
 
   savePosition(position) {
-    this.lat = position.coords.latitude.toFixed(4).toString();
-    this.long = position.coords.longitude.toFixed(4).toString();
-
-    // check local storage to see if value is saved
-    this.weatherData = this.getWeatherFromLocalStorage();
-    console.log('weatherData found');
-    console.log(this.weatherData);
-    if (this.weatherData.weatherDate === undefined) {
-      console.log('date undefined');
-      this.weatherService.getWeather(this.lat, this.long)
-      .then((resolve) => {
-        this.weatherData = resolve;
-        this.displayValues = true;
-
-        this.store.dispatch(new Load({weatherData: this.weatherData}));
-
-        if (this.weatherData.errorMessage !== '') {
-          alert(this.weatherData.errorMessage);
-        }
-      })
-      .catch((error) => { alert(error); });
-    } else {
-      console.log('date not undefined');
-      this.store.dispatch(new Load({weatherData: this.weatherData}));
-      this.displayValues = true;
-    }
-  }
-
-  getWeatherFromLocalStorage(): WeatherData {
-    let weatherDataLocalStorage = JSON.parse(localStorage.getItem('weather'));
-
-    // time from 5 minuts ago
-    const nowDate = new Date();
-    const lastFiveMin = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), nowDate.getHours(),
-      nowDate.getMinutes() - 5);
-    if ( weatherDataLocalStorage.weatherDate !== undefined &&
-          weatherDataLocalStorage.timeRetrieved > lastFiveMin) {
-      localStorage.removeItem('weather');
-      weatherDataLocalStorage = new WeatherData();
-    }
-    return weatherDataLocalStorage;
+    this.locationData.latitude = position.coords.latitude.toFixed(4).toString();
+    this.locationData.longitude = position.coords.longitude.toFixed(4).toString();
+    this.displayValues = true;
+    this.store.dispatch(new LoadLocations({locationData: this.locationData}));
   }
 }
