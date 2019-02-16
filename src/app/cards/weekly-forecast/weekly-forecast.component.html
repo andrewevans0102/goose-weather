@@ -1,10 +1,15 @@
-<table class="table-responsive-sm">
-  <tbody>
-    <td *ngFor="let weekday of data.weeklyForecast">
-      <tr class="name">{{weekday.name}}</tr>
-      <tr class="temp">{{weekday.temp}}°</tr>
-      <tr class="wind">{{weekday.windSpeed}} {{weekday.windDirection}}</tr>
-      <tr class="weather-image"><img src={{weekday.icon}}></tr>
-    </td>
-  </tbody>
-</table>
+<div class="forecast-tile">
+  <table class="table-responsive-sm" *ngIf="data != undefined; else elseBlock">
+    <tbody>
+      <td *ngFor="let weekday of data.weeklyForecast">
+        <tr class="name">{{weekday.name}}</tr>
+        <tr class="temp">{{weekday.temp}}°</tr>
+        <tr class="wind">{{weekday.windSpeed}} {{weekday.windDirection}}</tr>
+        <tr class="weather-image"><img src={{weekday.icon}}></tr>
+      </td>
+    </tbody>
+  </table>
+</div>
+<ng-template #elseBlock>
+  <mat-spinner></mat-spinner>
+</ng-template>

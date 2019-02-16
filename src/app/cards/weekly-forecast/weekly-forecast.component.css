@@ -35,3 +35,8 @@ td {
   height: 2em;
   margin-bottom: 1em;
 }
+
+.forecast-tile {
+  margin-top: 2em;
+  margin-bottom: 2em;
+}

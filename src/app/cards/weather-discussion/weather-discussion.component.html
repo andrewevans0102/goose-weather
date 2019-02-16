@@ -1,4 +1,4 @@
-<div class="weather-discussion">
+<div class="weather-discussion" *ngIf="data != undefined; else elseBlock">
   <mat-accordion>
     <mat-expansion-panel *ngFor="let week of data.weeklyForecast">
       <mat-expansion-panel-header>
@@ -10,6 +10,9 @@
     </mat-expansion-panel>
   </mat-accordion>
 </div>
+<ng-template #elseBlock>
+  <mat-spinner></mat-spinner>
+</ng-template>
 
 
 

@@ -36,7 +36,8 @@ export class WeatherService {
       this.weatherData.currentConditions.sunrise = this.createDateFromMillseconds(currentWeather.sys.sunrise);
       this.weatherData.currentConditions.sunset = this.createDateFromMillseconds(currentWeather.sys.sunset);
       this.weatherData.currentConditions.icon = this.selectCurrentConditionsIcon(currentWeather.weather[0].icon);
-      this.weatherData.currentConditions.windDirection = this.getWindDirectionFromDegreeAngle(currentWeather.wind.speed);
+      this.weatherData.currentConditions.windSpeed = currentWeather.wind.speed;
+      this.weatherData.currentConditions.windDirection = this.getWindDirectionFromDegreeAngle(currentWeather.wind.deg);
 
       const weeklyForecast: any = await this.getNoaaWeeklyForecast(this.weatherData.NoaaWeeklyForecastUrl);
       if (weeklyForecast instanceof Error) {

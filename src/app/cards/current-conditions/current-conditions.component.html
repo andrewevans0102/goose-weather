@@ -1,32 +1,35 @@
-<mat-grid-list cols="4" rowHeight="4em">
+<mat-grid-list cols="4" rowHeight="4em" *ngIf="data != undefined; else elseBlock">
   <mat-grid-tile [colspan]="2" [rowspan]="1">
-    <p><span class="title">Latitude: </span> {{ data.currentConditions.latitude }}</p>
+    <p><span class="title">Latitude</span><span>{{ data.currentConditions.latitude }}</span></p>
   </mat-grid-tile>
   <mat-grid-tile [colspan]="2" [rowspan]="1">
-    <p><span class="title">Longitude: </span> {{ data.currentConditions.longitude }}</p>
+    <p><span class="title">Longitude</span><span>{{ data.currentConditions.longitude }}</span></p>
   </mat-grid-tile>
   <mat-grid-tile [colspan]="2" [rowspan]="1">
-    <p><span class="title">City: </span> {{ data.currentConditions.city }}</p>
+    <p><span class="title">City</span><span>{{ data.currentConditions.city }}</span></p>
   </mat-grid-tile>
   <mat-grid-tile [colspan]="2" [rowspan]="1">
-    <p><span class="title">State: </span> {{ data.currentConditions.state }}</p>
+    <p><span class="title">State</span><span>{{ data.currentConditions.state }}</span></p>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="2" [rowspan]="1">
+    <p><span class="title">Temp</span><span>{{ data.currentConditions.temp }}° F</span></p>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="2" [rowspan]="1">
+    <p><span class="title">Wind</span><span>{{ data.currentConditions.windSpeed }} MPH {{ data.currentConditions.windDirection }}</span></p>
   </mat-grid-tile>
   <mat-grid-tile [colspan]="1" [rowspan]="1">
-    <p><span class="title">Temp: </span> {{ data.currentConditions.temp }}</p>
+    <p><span class="title">Sunrise</span><span>{{ data.currentConditions.sunrise }}</span></p>
   </mat-grid-tile>
   <mat-grid-tile [colspan]="1" [rowspan]="1">
-    <p><span class="title">Wind: </span> {{ data.currentConditions.windSpeed }} {{ data.currentConditions.windDirection }}</p>
+    <p><span class="title">Sunset</span><span>{{ data.currentConditions.sunset }}</span></p>
   </mat-grid-tile>
   <mat-grid-tile [colspan]="2" [rowspan]="2">
     <img src={{data.currentConditions.icon}}>
   </mat-grid-tile>
-  <mat-grid-tile [colspan]="1" [rowspan]="1">
-    <p><span class="title">Sunrise: </span> {{ data.currentConditions.sunrise }} </p>
-  </mat-grid-tile>
-  <mat-grid-tile [colspan]="1" [rowspan]="1">
-    <p><span class="title">Sunset: </span> {{ data.currentConditions.sunset }} </p>
-  </mat-grid-tile>
-  <mat-grid-tile [colspan]="4" [rowspan]="1">
-    <p><span class="title">Retrieved: </span> {{ data.weatherDate | date:'short' }} </p>
+  <mat-grid-tile [colspan]="2" [rowspan]="1">
+    <p><span class="title">Retrieved: </span><span>{{ data.weatherDate | date:'longTime' }}</span></p>
   </mat-grid-tile>
 </mat-grid-list>
+<ng-template #elseBlock>
+  <mat-spinner></mat-spinner>
+</ng-template>

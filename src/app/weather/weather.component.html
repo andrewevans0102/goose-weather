@@ -9,7 +9,7 @@
       <hr class="my-4">
     </div>
   </div>
-  <mat-grid-list cols="3" rowHeight="26em"  *ngIf="displayValues ===  true; else elseBlock">
+  <mat-grid-list cols="3" rowHeight="29em">
     <mat-grid-tile *ngFor="let card of cards | async"  [colspan]="card.cols" [rowspan]="card.rows">
       <mat-card class="dashboard-card">
         <mat-card-header>
@@ -23,7 +23,4 @@
       </mat-card>
     </mat-grid-tile>
   </mat-grid-list>
-  <ng-template #elseBlock>
-    <mat-spinner [color]="spinnerColor" [diameter]="200"></mat-spinner>
-  </ng-template>
 </div>

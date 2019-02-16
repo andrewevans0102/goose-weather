@@ -11,7 +11,6 @@ import { AboutDesktopComponent } from '../cards/about-desktop/about-desktop.comp
 import { AboutMobileComponent } from '../cards/about-mobile/about-mobile.component';
 import { Store } from '@ngrx/store';
 import { AppState } from '../reducers';
-import { Load } from '../actions/weather.actions';
 import { LoadLocations } from '../actions/location.actions';
 import { LocationData } from '../models/location-data/location-data';
 
@@ -132,7 +131,7 @@ export class WeatherComponent implements OnInit {
   savePosition(position) {
     this.locationData.latitude = position.coords.latitude.toFixed(4).toString();
     this.locationData.longitude = position.coords.longitude.toFixed(4).toString();
-    this.displayValues = true;
+
     this.store.dispatch(new LoadLocations({locationData: this.locationData}));
   }
 }

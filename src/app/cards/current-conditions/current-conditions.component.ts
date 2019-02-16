@@ -10,7 +10,7 @@ import { AppState } from 'src/app/reducers';
 })
 export class CurrentConditionsComponent implements OnInit {
 
-  data = new WeatherData();
+  data:WeatherData;
 
   constructor(private store: Store<AppState>) { }
 
