@@ -1,9 +1,16 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { WeatherData } from '../models/weather-data/weather-data';
 import { WeeklyForecast } from '../models/weekly-forecast/weekly-forecast';
 import { HourlyForecast } from '../models/hourly-forecast/hourly-forecast';
+import { Observable, throwError, of } from 'rxjs';
+import { catchError, mergeMap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
+import { LocationData } from '../models/location-data/location-data';
+import { Store } from '@ngrx/store';
+import { AppState } from '../reducers';
+import { IfStmt } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
@@ -12,54 +19,70 @@ export class WeatherService {
 
   weatherData: WeatherData = new WeatherData();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private store: Store<AppState>) { }
 
-  async getWeather(lat: string, long: string): Promise<WeatherData> {
-    try {
-      const metadata: any = await this.getNoaaMetadata(lat, long);
-      if (metadata instanceof Error) {
-        throw metadata;
-      }
-      this.weatherData.currentConditions.latitude = lat;
-      this.weatherData.currentConditions.longitude = long;
-      this.weatherData.currentConditions.city = metadata.properties.relativeLocation.properties.city;
-      this.weatherData.currentConditions.state = metadata.properties.relativeLocation.properties.state;
-      this.weatherData.NoaaWeeklyForecastUrl = metadata.properties.forecast;
-      this.weatherData.NoaaHourlyForecastUrl = metadata.properties.forecastHourly;
+  getWeather(lat: string, long: string): Observable<any> {
+    return this.getNoaaMetadata(lat, long)
+      .pipe(
+        mergeMap( metadata => this.getNoaaWeeklyForecast(metadata.properties.forecast)
+          .pipe(
+            mergeMap( weeklyForecast => this.getNoaaHourlyForecast(metadata.properties.forecastHourly)
+              .pipe(
+                mergeMap( hourlyForecast => this.getCurrentWeatherOpenWeatherMapAPI(lat, long)
+                  .pipe(
+                    map((currentWeather) => {
+                      // metadata
+                      this.weatherData.currentConditions.latitude = lat;
+                      this.weatherData.currentConditions.longitude = long;
+                      this.weatherData.currentConditions.city = metadata.properties.relativeLocation.properties.city;
+                      this.weatherData.currentConditions.state = metadata.properties.relativeLocation.properties.state;
+                      this.weatherData.NoaaWeeklyForecastUrl = metadata.properties.forecast;
+                      this.weatherData.NoaaHourlyForecastUrl = metadata.properties.forecastHourly;
 
-      const currentWeather: any = await this.getCurrentWeatherOpenWeatherMapAPI(lat, long);
-      if (currentWeather instanceof Error) {
-        throw currentWeather;
-      }
-      this.weatherData.currentConditions.temp = String(Math.ceil(currentWeather.main.temp));
-      this.weatherData.currentConditions.description = currentWeather.weather[0].description;
-      this.weatherData.currentConditions.sunrise = this.createDateFromMillseconds(currentWeather.sys.sunrise);
-      this.weatherData.currentConditions.sunset = this.createDateFromMillseconds(currentWeather.sys.sunset);
-      this.weatherData.currentConditions.icon = this.selectCurrentConditionsIcon(currentWeather.weather[0].icon);
-      this.weatherData.currentConditions.windSpeed = currentWeather.wind.speed;
-      this.weatherData.currentConditions.windDirection = this.getWindDirectionFromDegreeAngle(currentWeather.wind.deg);
+                      // weekly forecast
+                      this.weatherData.weeklyForecast = this.createWeeklyForecastFromNoaaData(weeklyForecast.properties.periods);
 
-      const weeklyForecast: any = await this.getNoaaWeeklyForecast(this.weatherData.NoaaWeeklyForecastUrl);
-      if (weeklyForecast instanceof Error) {
-        throw weeklyForecast;
-      }
-      this.weatherData.weeklyForecast = this.createWeeklyForecastFromNoaaData(weeklyForecast.properties.periods);
+                      // hourly forecast
+                      this.weatherData.hourlyForecast = this.createHourlyForecastFromNoaaData(hourlyForecast.properties.periods);
 
-      const hourlyForecast: any = await this.getNoaaHourlyForecast(this.weatherData.NoaaHourlyForecastUrl);
-      if (hourlyForecast instanceof Error) {
-        throw hourlyForecast;
-      }
-      this.weatherData.hourlyForecast = this.createHourlyForecastFromNoaaData(hourlyForecast.properties.periods);
+                      // current conditions
+                      this.weatherData.currentConditions.temp = String(Math.ceil(currentWeather.main.temp));
+                      this.weatherData.currentConditions.description = currentWeather.weather[0].description;
+                      this.weatherData.currentConditions.sunrise = this.createDateFromMillseconds(currentWeather.sys.sunrise);
+                      this.weatherData.currentConditions.sunset = this.createDateFromMillseconds(currentWeather.sys.sunset);
+                      this.weatherData.currentConditions.icon = this.selectCurrentConditionsIcon(currentWeather.weather[0].icon);
+                      this.weatherData.currentConditions.windSpeed = currentWeather.wind.speed;
+                      this.weatherData.currentConditions.windDirection = this.getWindDirectionFromDegreeAngle(currentWeather.wind.deg);
 
-      // save time that the weather was retrieved
-      this.weatherData.weatherDate = new Date();
-    } catch (error) {
-      throw error;
+                      // save time that the weather was retrieved
+                      this.weatherData.weatherDate = new Date();
+
+                      return this.weatherData;
+                    }))
+                ))
+            ))
+        ));
+  }
+
+  getWeatherLocalStorage(): Observable<WeatherData> {
+    const localStorageWeatherData: WeatherData = JSON.parse(window.localStorage.getItem('weather'));
+    return of(localStorageWeatherData);
+  }
+
+  // method implementation is copied from angular documentation
+  private handleError(error: HttpErrorResponse) {
+    if (error.error instanceof ErrorEvent) {
+      // clientside
+      console.error('An error occurred:', error.error.message);
+    } else {
+      // backend
+      console.error(
+        `Backend returned code ${error.status}, ` +
+        `body was: ${error.error}`);
     }
-
-    return new Promise<WeatherData>((resolve) => {
-      resolve(this.weatherData);
-    });
+    // custom error to be caught
+    return throwError(
+      'An error occured when calling APIs');
   }
 
   getWindDirectionFromDegreeAngle(degreeAngle: number): string {
@@ -120,32 +143,48 @@ export class WeatherService {
     return dateFormatted;
   }
 
-  getNoaaMetadata(lat: string, long: string): Promise<any> {
+  getNoaaMetadata(lat: string, long: string): Observable<any> {
     const noaaMetaDataEndpoint = environment.noaaMetaDataEndpoint;
     const metadataURL: string = noaaMetaDataEndpoint + lat + ',' + long;
-    return this.http.get(metadataURL).toPromise()
-      .catch(() => new Error('error when calling metadataURL'));
+    // return this.http.get(metadataURL).toPromise()
+    //   .catch(() => new Error('error when calling metadataURL'));
+    return this.http.get(metadataURL)
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
-  getNoaaHourlyForecast(hourlyURL): Promise<any> {
-    return this.http.get(hourlyURL).toPromise()
-      .catch(() => new Error('error when calling hourlyURL'));
+  getNoaaHourlyForecast(hourlyURL): Observable<any> {
+    // return this.http.get(hourlyURL).toPromise()
+    //   .catch(() => new Error('error when calling hourlyURL'));
+    return this.http.get(hourlyURL)
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
-  getNoaaWeeklyForecast(forecastURL): Promise<any> {
-    return this.http.get(forecastURL).toPromise()
-      .catch(() => new Error('error when calling forecastURL'));
+  getNoaaWeeklyForecast(forecastURL): Observable<any> {
+    // return this.http.get(forecastURL).toPromise()
+    //   .catch(() => new Error('error when calling forecastURL'));
+    return this.http.get(forecastURL)
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
-  getCurrentWeatherOpenWeatherMapAPI(lat: string, long: string) {
+  getCurrentWeatherOpenWeatherMapAPI(lat: string, long: string): Observable<any> {
     const APIKey = environment.openWeatherMapAPIKey;
     // default units are kelvin https://openweathermap.org/current
     // pass the unit imperial here to use Farenheit
     const units = 'imperial';
     const openWeatherMapAPIURL = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + long
       + '&units=' + units + '&appid=' + APIKey;
-    return this.http.get(openWeatherMapAPIURL).toPromise()
-      .catch(() => new Error('error when calling openWeatherMapURL'));
+    // return this.http.get(openWeatherMapAPIURL).toPromise()
+    //   .catch(() => new Error('error when calling openWeatherMapURL'));
+    return this.http.get(openWeatherMapAPIURL)
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
   selectCurrentConditionsIcon(iconAPI: string) {

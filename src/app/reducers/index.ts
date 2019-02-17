@@ -4,6 +4,7 @@ import { WeatherData } from '../models/weather-data/weather-data';
 import { WeatherActionTypes } from '../actions/weather.actions';
 import { LocationActionTypes } from '../actions/location.actions';
 import { LocationData } from '../models/location-data/location-data';
+import { createSelector } from '@ngrx/store';
 
 export interface WeatherState {
   weatherData: WeatherData;
@@ -28,7 +29,7 @@ export interface AppState {
 
 export function weatherReducer(state: WeatherState = initialWeatherState, action): WeatherState {
   switch (action.type) {
-    case WeatherActionTypes.LoadAction:
+    case WeatherActionTypes.LoadWeather:
       return {
         weatherData: action.payload.weatherData
       };
@@ -58,28 +59,8 @@ export const reducers: ActionReducerMap<AppState> = {
 
 export function locationSync(reducer: ActionReducer<any>): ActionReducer<any> {
   return (state, action) => {
-    let reducedState = reducer(state, action);
-    if (action.type === INIT) {
-      const data = window.localStorage.getItem('weather');
-      if (data) {
-        const weatherDataLocalStorage: WeatherData = JSON.parse(data);
-        if (weatherDataLocalStorage === null) {
-          window.localStorage.removeItem('weather');
-        } else {
-          // update if data is older than 5 minutes
-          const nowDate = new Date();
-          const lastFiveMin = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), nowDate.getHours(),
-            nowDate.getMinutes() - 1);
-          const compareTime = new Date(weatherDataLocalStorage.weatherDate);
-          if (compareTime < lastFiveMin) {
-            window.localStorage.removeItem('weather');
-          }
-        }
-        reducedState = {
-          ...reducedState
-        };
-      }
-    } else if (action.type === WeatherActionTypes.LoadAction) {
+    const reducedState = reducer(state, action);
+    if (action.type === WeatherActionTypes.LoadWeather) {
       window.localStorage.setItem('weather', JSON.stringify(reducedState.weather.weatherData));
     }
     return reducedState;

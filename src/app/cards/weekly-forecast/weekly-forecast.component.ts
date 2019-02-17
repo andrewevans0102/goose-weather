@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { WeatherData } from 'src/app/models/weather-data/weather-data';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/reducers';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-weekly-forecast',
