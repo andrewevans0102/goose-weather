@@ -54,8 +54,6 @@ export class WeatherService {
                       // save time that the weather was retrieved
                       this.weatherData.weatherDate = new Date();
 
-                      localStorage.setItem('goose-weather', JSON.stringify(this.weatherData));
-
                       return this.weatherData;
                     }))
                 ))
