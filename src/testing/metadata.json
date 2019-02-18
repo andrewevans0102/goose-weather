@@ -1,0 +1,92 @@
+{
+  "@context": [
+      "https://raw.githubusercontent.com/geojson/geojson-ld/master/contexts/geojson-base.jsonld",
+      {
+          "wx": "https://api.weather.gov/ontology#",
+          "s": "https://schema.org/",
+          "geo": "http://www.opengis.net/ont/geosparql#",
+          "unit": "http://codes.wmo.int/common/unit/",
+          "@vocab": "https://api.weather.gov/ontology#",
+          "geometry": {
+              "@id": "s:GeoCoordinates",
+              "@type": "geo:wktLiteral"
+          },
+          "city": "s:addressLocality",
+          "state": "s:addressRegion",
+          "distance": {
+              "@id": "s:Distance",
+              "@type": "s:QuantitativeValue"
+          },
+          "bearing": {
+              "@type": "s:QuantitativeValue"
+          },
+          "value": {
+              "@id": "s:value"
+          },
+          "unitCode": {
+              "@id": "s:unitCode",
+              "@type": "@id"
+          },
+          "forecastOffice": {
+              "@type": "@id"
+          },
+          "forecastGridData": {
+              "@type": "@id"
+          },
+          "publicZone": {
+              "@type": "@id"
+          },
+          "county": {
+              "@type": "@id"
+          }
+      }
+  ],
+  "id": "https://api.weather.gov/points/37.6584,-77.6526",
+  "type": "Feature",
+  "geometry": {
+      "type": "Point",
+      "coordinates": [
+          -77.652600000000007,
+          37.6584
+      ]
+  },
+  "properties": {
+      "@id": "https://api.weather.gov/points/37.6584,-77.6526",
+      "@type": "wx:Point",
+      "cwa": "AKQ",
+      "forecastOffice": "https://api.weather.gov/offices/AKQ",
+      "gridX": 36,
+      "gridY": 80,
+      "forecast": "https://api.weather.gov/gridpoints/AKQ/36,80/forecast",
+      "forecastHourly": "https://api.weather.gov/gridpoints/AKQ/36,80/forecast/hourly",
+      "forecastGridData": "https://api.weather.gov/gridpoints/AKQ/36,80",
+      "observationStations": "https://api.weather.gov/gridpoints/AKQ/36,80/stations",
+      "relativeLocation": {
+          "type": "Feature",
+          "geometry": {
+              "type": "Point",
+              "coordinates": [
+                  -77.621014000000002,
+                  37.656956000000001
+              ]
+          },
+          "properties": {
+              "city": "Short Pump",
+              "state": "VA",
+              "distance": {
+                  "value": 2785.159475307697,
+                  "unitCode": "unit:m"
+              },
+              "bearing": {
+                  "value": 273,
+                  "unitCode": "unit:degrees_true"
+              }
+          }
+      },
+      "forecastZone": "https://api.weather.gov/zones/forecast/VAZ062",
+      "county": "https://api.weather.gov/zones/county/VAC075",
+      "fireWeatherZone": "https://api.weather.gov/zones/fire/VAZ062",
+      "timeZone": "America/New_York",
+      "radarStation": "KAKQ"
+  }
+}

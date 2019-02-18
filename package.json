@@ -42,8 +42,6 @@
     "popper.js": "^1.14.7",
     "puppeteer": "^1.12.2",
     "rxjs": "~6.3.3",
-    "terser": "^3.14.1",
-    "tslib": "^1.9.0",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {

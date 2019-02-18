@@ -18,7 +18,7 @@ export class WeatherEffects {
   updateLocation$ = this.actions$
     .pipe(
       ofType<UpdateLocations>(LocationActionTypes.UpdateLocations),
-      mergeMap((action) => this.weatherService.getWeather(action.payload.locationData.latitude, action.payload.locationData.longitude)
+      mergeMap((action) => this.weatherService.getWeather(action.payload.locationData)
         .pipe(
           map(weather => {
             this.store.dispatch(new LoadWeather({weatherData: weather}));
