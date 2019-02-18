@@ -18,7 +18,7 @@
           </mat-card-title>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
-          <ng-container *ngComponentOutlet="card.component"></ng-container>
+            <ng-container *ngxComponentOutlet="card.component; context: { weatherData: weatherData }"></ng-container>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>

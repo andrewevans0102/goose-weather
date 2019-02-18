@@ -9,9 +9,6 @@ import { WeeklyForecastComponent } from '../cards/weekly-forecast/weekly-forecas
 import { HourlyForecastComponent } from '../cards/hourly-forecast/hourly-forecast.component';
 import { AboutDesktopComponent } from '../cards/about-desktop/about-desktop.component';
 import { AboutMobileComponent } from '../cards/about-mobile/about-mobile.component';
-import { Store } from '@ngrx/store';
-import { AppState } from '../reducers';
-import { UpdateLocations, LoadLocations } from '../actions/location.actions';
 import { LocationData } from '../models/location-data/location-data';
 
 @Component({
@@ -21,6 +18,7 @@ import { LocationData } from '../models/location-data/location-data';
 })
 export class WeatherComponent implements OnInit {
 
+  weatherData: WeatherData;
   lat: string;
   long: string;
   cardsDesktop = [];
@@ -40,7 +38,7 @@ export class WeatherComponent implements OnInit {
     })
   );
 
-  constructor(private breakpointObserver: BreakpointObserver, public weatherService: WeatherService, private store: Store<AppState>) {
+  constructor(private breakpointObserver: BreakpointObserver, public weatherService: WeatherService) {
     // desktop view
     this.cardsDesktop = [
       {
@@ -124,37 +122,8 @@ export class WeatherComponent implements OnInit {
     this.locationData.latitude = position.coords.latitude.toFixed(4).toString();
     this.locationData.longitude = position.coords.longitude.toFixed(4).toString();
 
-    // check local storage for updates
-    const localStorageWeatherData = window.localStorage.getItem('weather');
-    const weatherDataLocalStorage: WeatherData = JSON.parse(localStorageWeatherData);
-    const updateWeather = this.checkStoreDataForUpdates(weatherDataLocalStorage, this.locationData);
-    if (updateWeather) {
-      // side effect is update weather
-      this.store.dispatch(new UpdateLocations({locationData: this.locationData}));
-    } else {
-      this.store.dispatch(new LoadLocations({locationData: this.locationData}));
-    }
+    this.weatherService.getWeather(this.locationData)
+      .subscribe(weather => this.weatherData = weather);
   }
 
-  checkStoreDataForUpdates(weatherData: WeatherData, locationData: LocationData): boolean {
-    if (weatherData === null || weatherData === undefined) {
-      return true;
-    } else {
-      if (weatherData.currentConditions.longitude !== locationData.longitude ||
-          weatherData.currentConditions.latitude !== locationData.latitude) {
-          // update if coordinates are different
-          return true;
-      }
-
-      // update if data is older than 30 minutes
-      const nowDate = new Date();
-      const lastFiveMin = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), nowDate.getHours(),
-        nowDate.getMinutes() - 30);
-      // put date in same format for comparision
-      const compareTime = new Date(weatherData.weatherDate);
-      if (compareTime < lastFiveMin) {
-        return true;
-      }
-    }
-  }
 }

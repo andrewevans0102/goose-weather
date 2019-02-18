@@ -8,9 +8,6 @@ import { Observable, throwError, of } from 'rxjs';
 import { catchError, mergeMap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { LocationData } from '../models/location-data/location-data';
-import { Store } from '@ngrx/store';
-import { AppState } from '../reducers';
-import { IfStmt } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
@@ -19,21 +16,21 @@ export class WeatherService {
 
   weatherData: WeatherData = new WeatherData();
 
-  constructor(private http: HttpClient, private store: Store<AppState>) { }
+  constructor(private http: HttpClient) { }
 
-  getWeather(lat: string, long: string): Observable<any> {
-    return this.getNoaaMetadata(lat, long)
+  getWeather(locationData: LocationData): Observable<any> {
+    return this.getNoaaMetadata(locationData.latitude, locationData.longitude)
       .pipe(
         mergeMap( metadata => this.getNoaaWeeklyForecast(metadata.properties.forecast)
           .pipe(
             mergeMap( weeklyForecast => this.getNoaaHourlyForecast(metadata.properties.forecastHourly)
               .pipe(
-                mergeMap( hourlyForecast => this.getCurrentWeatherOpenWeatherMapAPI(lat, long)
+                mergeMap( hourlyForecast => this.getCurrentWeatherOpenWeatherMapAPI(locationData.latitude, locationData.longitude)
                   .pipe(
                     map((currentWeather) => {
                       // metadata
-                      this.weatherData.currentConditions.latitude = lat;
-                      this.weatherData.currentConditions.longitude = long;
+                      this.weatherData.currentConditions.latitude = locationData.latitude;
+                      this.weatherData.currentConditions.longitude = locationData.longitude;
                       this.weatherData.currentConditions.city = metadata.properties.relativeLocation.properties.city;
                       this.weatherData.currentConditions.state = metadata.properties.relativeLocation.properties.state;
                       this.weatherData.NoaaWeeklyForecastUrl = metadata.properties.forecast;
@@ -57,6 +54,8 @@ export class WeatherService {
                       // save time that the weather was retrieved
                       this.weatherData.weatherDate = new Date();
 
+                      localStorage.setItem('goose-weather', JSON.stringify(this.weatherData));
+
                       return this.weatherData;
                     }))
                 ))
@@ -69,7 +68,7 @@ export class WeatherService {
     return of(localStorageWeatherData);
   }
 
-  // method implementation is copied from angular documentation
+  // method implementation copied from angular documentation
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // clientside
@@ -146,8 +145,8 @@ export class WeatherService {
   getNoaaMetadata(lat: string, long: string): Observable<any> {
     const noaaMetaDataEndpoint = environment.noaaMetaDataEndpoint;
     const metadataURL: string = noaaMetaDataEndpoint + lat + ',' + long;
-    // return this.http.get(metadataURL).toPromise()
-    //   .catch(() => new Error('error when calling metadataURL'));
+    console.log('metadata');
+    console.log(metadataURL);
     return this.http.get(metadataURL)
       .pipe(
         catchError(this.handleError)
@@ -155,8 +154,8 @@ export class WeatherService {
   }
 
   getNoaaHourlyForecast(hourlyURL): Observable<any> {
-    // return this.http.get(hourlyURL).toPromise()
-    //   .catch(() => new Error('error when calling hourlyURL'));
+    console.log('hourly');
+    console.log(hourlyURL);
     return this.http.get(hourlyURL)
       .pipe(
         catchError(this.handleError)
@@ -164,8 +163,8 @@ export class WeatherService {
   }
 
   getNoaaWeeklyForecast(forecastURL): Observable<any> {
-    // return this.http.get(forecastURL).toPromise()
-    //   .catch(() => new Error('error when calling forecastURL'));
+    console.log('weekly');
+    console.log(forecastURL);
     return this.http.get(forecastURL)
       .pipe(
         catchError(this.handleError)
@@ -181,6 +180,8 @@ export class WeatherService {
       + '&units=' + units + '&appid=' + APIKey;
     // return this.http.get(openWeatherMapAPIURL).toPromise()
     //   .catch(() => new Error('error when calling openWeatherMapURL'));
+    console.log('openWeather');
+    console.log(openWeatherMapAPIURL);
     return this.http.get(openWeatherMapAPIURL)
       .pipe(
         catchError(this.handleError)

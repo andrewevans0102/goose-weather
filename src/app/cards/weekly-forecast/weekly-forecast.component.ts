@@ -1,8 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { WeatherData } from 'src/app/models/weather-data/weather-data';
-import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/reducers';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-weekly-forecast',
@@ -13,11 +10,15 @@ export class WeeklyForecastComponent implements OnInit {
 
   data: WeatherData;
 
-  constructor(private store: Store<AppState>) { }
+  @Input()
+  set weatherData(weatherData: WeatherData) {
+    this.data = weatherData || null;
+  }
+
+  constructor() { }
 
   ngOnInit(): void {
-    this.store
-      .subscribe(state => this.data = state.weather.weatherData);
+
   }
 
 }

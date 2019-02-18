@@ -11,8 +11,7 @@ import {
 import { WeatherComponent } from './weather.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AngularMaterialModule } from '../../angular-material/angular-material.module';
-import { StoreModule } from '@ngrx/store';
-import { reducers, metaReducers } from '../reducers';
+import { NgxdModule } from '@ngxd/core';
 
 describe('WeatherComponent', () => {
   let component: WeatherComponent;
@@ -31,7 +30,7 @@ describe('WeatherComponent', () => {
         MatMenuModule,
         HttpClientModule,
         AngularMaterialModule,
-        StoreModule.forRoot(reducers, { metaReducers }),
+        NgxdModule
       ]
     }).compileComponents();
   }));

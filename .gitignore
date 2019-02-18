@@ -68,3 +68,6 @@ src/environments/local_environment.ts
 
 # package lock json file
 package-lock.json
+
+# Apple DS_Store
+.DS_Store

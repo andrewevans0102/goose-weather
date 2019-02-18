@@ -14,12 +14,8 @@ import { WeeklyForecastComponent } from './cards/weekly-forecast/weekly-forecast
 import { HourlyForecastComponent } from './cards/hourly-forecast/hourly-forecast.component';
 import { AboutMobileComponent } from './cards/about-mobile/about-mobile.component';
 import { AboutDesktopComponent } from './cards/about-desktop/about-desktop.component';
-import { StoreModule } from '@ngrx/store';
-import { reducers, metaReducers } from './reducers';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { environment } from '../environments/environment';
-import { EffectsModule } from '@ngrx/effects';
-import { WeatherEffects } from './effects/weather.effects';
+import { NgxdModule } from '@ngxd/core';
+// import 'hammerjs';
 
 @NgModule({
   declarations: [
@@ -50,9 +46,8 @@ import { WeatherEffects } from './effects/weather.effects';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    StoreModule.forRoot(reducers, { metaReducers }),
-    !environment.production ? StoreDevtoolsModule.instrument() : [],
-    EffectsModule.forRoot([WeatherEffects])
+    NgxdModule,
+    // hammerjs
   ],
   providers: [],
   bootstrap: [AppComponent]
