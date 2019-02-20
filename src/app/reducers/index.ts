@@ -4,7 +4,6 @@ import { WeatherData } from '../models/weather-data/weather-data';
 import { WeatherActionTypes } from '../actions/weather.actions';
 import { LocationActionTypes } from '../actions/location.actions';
 import { LocationData } from '../models/location-data/location-data';
-import { createSelector } from '@ngrx/store';
 
 export interface WeatherState {
   weatherData: WeatherData;
@@ -56,6 +55,8 @@ export const reducers: ActionReducerMap<AppState> = {
   weather: weatherReducer,
   location: locationReducer
 };
+
+export const selectWeather = (state: AppState) => state.weather.weatherData;
 
 export function locationSync(reducer: ActionReducer<any>): ActionReducer<any> {
   return (state, action) => {

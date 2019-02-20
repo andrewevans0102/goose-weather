@@ -1,22 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { WeatherData } from 'src/app/models/weather-data/weather-data';
 import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/reducers';
+import { AppState, selectWeather } from 'src/app/reducers';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-weather-discussion',
   templateUrl: './weather-discussion.component.html',
   styleUrls: ['./weather-discussion.component.css']
 })
-export class WeatherDiscussionComponent implements OnInit {
+export class WeatherDiscussionComponent implements OnInit, OnDestroy {
 
   data: WeatherData;
+  private unsubscribeWeather: Subject<void> = new Subject<void>();
 
   constructor(private store: Store<AppState>) { }
 
   ngOnInit(): void {
     this.store
-      .subscribe(state => this.data = state.weather.weatherData);
+      .select(selectWeather)
+      .pipe(takeUntil(this.unsubscribeWeather))
+      .subscribe((weather) => this.data = weather);
+  }
+
+  ngOnDestroy() {
+    this.unsubscribeWeather.next();
+    this.unsubscribeWeather.complete();
   }
 
 }

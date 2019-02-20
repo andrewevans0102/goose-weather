@@ -200,7 +200,7 @@ export class WeatherService {
       }
       case '13d' || '13n': {
         // snow day
-        conditionIcon = './assets/snow.svg';
+        conditionIcon = './assets/snow.png';
         break;
       }
       default: {

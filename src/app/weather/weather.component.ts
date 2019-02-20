@@ -148,11 +148,11 @@ export class WeatherComponent implements OnInit {
 
       // update if data is older than 30 minutes
       const nowDate = new Date();
-      const lastFiveMin = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), nowDate.getHours(),
+      const lastThirtyMin = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), nowDate.getHours(),
         nowDate.getMinutes() - 30);
       // put date in same format for comparision
       const compareTime = new Date(weatherData.weatherDate);
-      if (compareTime < lastFiveMin) {
+      if (compareTime < lastThirtyMin) {
         return true;
       }
     }
