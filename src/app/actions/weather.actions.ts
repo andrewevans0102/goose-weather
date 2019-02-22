@@ -5,10 +5,17 @@ export enum WeatherActionTypes {
   LoadWeather = '[Weather] Load Weather'
 }
 
+export class WeatherAction implements Action {
+  type: string;
+  payload: {
+    weatherData: WeatherData
+  };
+}
+
 export class LoadWeather implements Action {
   readonly type = WeatherActionTypes.LoadWeather;
 
-  constructor(public payload: {weatherData: WeatherData}) {
+  constructor(readonly payload: {weatherData: WeatherData}) {
 
   }
 }

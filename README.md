@@ -7,5 +7,5 @@
 - Project CICD pipeline is managed with CirlceCI [here](https://circleci.com/)
 - Used Angular CDK Schematic to generate the tiles and the hourly forecast
 - Angular Schematics can be seen [here](https://material.angular.io/guide/schematics)
-- Also used dynamic component generation with the NgxComponentOutlet [here](https://github.com/IndigoSoft/ngxd)
-- Currently the application is based on standard @Input decorators, but will be modified to use NgRx soon
+- Also used dynamic component generation with the ngComponentOutlet
+- Application also makes use of NgRx Store and Effects

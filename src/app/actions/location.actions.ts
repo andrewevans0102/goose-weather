@@ -7,10 +7,17 @@ export enum LocationActionTypes {
   LocationsError = '[Location] Locations Error'
 }
 
+export class LocationAction implements Action {
+  type: string;
+  payload: {
+    locationData: LocationData
+  };
+}
+
 export class LoadLocations implements Action {
   readonly type = LocationActionTypes.LoadLocations;
 
-  constructor(public payload: {locationData: LocationData}) {
+  constructor(readonly payload: {locationData: LocationData}) {
 
   }
 }
@@ -18,7 +25,7 @@ export class LoadLocations implements Action {
 export class UpdateLocations implements Action {
   readonly type = LocationActionTypes.UpdateLocations;
 
-  constructor(public payload: {locationData: LocationData}) {
+  constructor(readonly payload: {locationData: LocationData}) {
 
   }
 }

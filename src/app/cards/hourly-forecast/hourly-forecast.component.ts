@@ -28,7 +28,6 @@ export class HourlyForecastComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.unsubscribeWeather.next();
-    this.unsubscribeWeather.complete();
   }
 
 }

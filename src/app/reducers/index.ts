@@ -1,12 +1,12 @@
-import { ActionReducerMap, MetaReducer, ActionReducer, INIT, UPDATE} from '@ngrx/store';
+import { ActionReducerMap, MetaReducer, Action} from '@ngrx/store';
 import { environment } from '../../environments/environment';
 import { WeatherData } from '../models/weather-data/weather-data';
-import { WeatherActionTypes } from '../actions/weather.actions';
-import { LocationActionTypes } from '../actions/location.actions';
+import { WeatherActionTypes, WeatherAction } from '../actions/weather.actions';
+import { LocationActionTypes, LocationAction } from '../actions/location.actions';
 import { LocationData } from '../models/location-data/location-data';
 
 export interface WeatherState {
-  weatherData: WeatherData;
+  weatherData: WeatherData|null;
 }
 
 const initialWeatherState: WeatherState = {
@@ -14,7 +14,7 @@ const initialWeatherState: WeatherState = {
 };
 
 export interface LocationState {
-  location: LocationData;
+  location: LocationData| null;
 }
 
 const initialLocationState: LocationState = {
@@ -26,7 +26,7 @@ export interface AppState {
   location: LocationState;
 }
 
-export function weatherReducer(state: WeatherState = initialWeatherState, action): WeatherState {
+export function weatherReducer(state: WeatherState = initialWeatherState, action: WeatherAction): WeatherState {
   switch (action.type) {
     case WeatherActionTypes.LoadWeather:
       return {
@@ -38,7 +38,7 @@ export function weatherReducer(state: WeatherState = initialWeatherState, action
   }
 }
 
-export function locationReducer(state: LocationState = initialLocationState, action): LocationState {
+export function locationReducer(state: LocationState = initialLocationState, action: LocationAction): LocationState {
   switch (action.type) {
     case LocationActionTypes.LoadLocations:
       return {

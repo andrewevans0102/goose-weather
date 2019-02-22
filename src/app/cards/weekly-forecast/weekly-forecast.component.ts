@@ -26,7 +26,6 @@ export class WeeklyForecastComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.unsubscribeWeather.next();
-    this.unsubscribeWeather.complete();
   }
 
 }
