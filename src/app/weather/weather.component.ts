@@ -17,6 +17,7 @@ import { Observable } from 'rxjs';
 import * as USCities from '../../assets/us_cities.json';
 import { City } from '../models/city/city';
 import { MatAutocompleteSelectedEvent } from '@angular/material';
+import { LoadWeather } from '../actions/weather.actions';
 
 @Component({
   selector: 'app-weather',
@@ -185,6 +186,7 @@ export class WeatherComponent implements OnInit {
       if (city.combinedName === event.option.value) {
         this.locationData.latitude = city.latitude;
         this.locationData.longitude = city.longitude;
+        this.store.dispatch(new LoadWeather({weatherData: null}));
         this.store.dispatch(new UpdateLocations({locationData: this.locationData}));
         break;
       }
