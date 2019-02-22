@@ -168,7 +168,7 @@ export class WeatherComponent implements OnInit {
     this.locationData.latitude = position.coords.latitude.toFixed(4).toString();
     this.locationData.longitude = position.coords.longitude.toFixed(4).toString();
     for (const city of this.cities) {
-      if(city.combinedName === '(your location)') {
+      if (city.combinedName === '(your location)') {
         city.latitude = this.locationData.latitude;
         city.longitude = this.locationData.longitude;
       }
@@ -181,7 +181,7 @@ export class WeatherComponent implements OnInit {
 
   onSelectionChanged(event: MatAutocompleteSelectedEvent) {
     for (const city of this.cities) {
-      if(city.combinedName === event.option.value) {
+      if (city.combinedName === event.option.value) {
         this.locationData.latitude = city.latitude;
         this.locationData.longitude = city.longitude;
         this.weatherService.getWeather(this.locationData)
