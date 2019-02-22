@@ -31,7 +31,7 @@ export class WeatherEffects {
   loadLocation$ = this.actions$
     .pipe(
       ofType<LoadLocations>(LocationActionTypes.LoadLocations),
-      mergeMap((action) => this.weatherService.getWeatherLocalStorage()
+      mergeMap((action) => this.weatherService.getWeather(action.payload.locationData)
         .pipe(
           map(weather => {
             this.store.dispatch(new LoadWeather({weatherData: weather}));

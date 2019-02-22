@@ -58,14 +58,4 @@ export const reducers: ActionReducerMap<AppState> = {
 
 export const selectWeather = (state: AppState) => state.weather.weatherData;
 
-export function locationSync(reducer: ActionReducer<any>): ActionReducer<any> {
-  return (state, action) => {
-    const reducedState = reducer(state, action);
-    if (action.type === WeatherActionTypes.LoadWeather) {
-      window.localStorage.setItem('weather', JSON.stringify(reducedState.weather.weatherData));
-    }
-    return reducedState;
-  };
-}
-
-export const metaReducers: MetaReducer<any>[] = !environment.production ? [locationSync] : [locationSync];
+export const metaReducers: MetaReducer<any>[] = !environment.production ? [] : [];

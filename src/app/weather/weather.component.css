@@ -57,3 +57,61 @@
 mat-spinner {
   margin: 20em;
 }
+
+.toolbar-icon {
+  padding: 0 14px;
+  margin-right: 1em;
+}
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+.goose-image {
+  margin-top: 1em;
+  margin-right: 0.5em;
+}
+
+.goose-desktop {
+  margin-top: 1em;
+  margin-left: 2em;
+}
+
+.toolbar-title {
+  margin-top: 1em;
+  margin-right: 0.5em;
+  display: flex;
+  flex-direction: column;
+}
+
+.toolbar-desktop {
+  margin-top: .5em;
+  margin-left: 1em;
+  margin-right: 1em;
+  font-size: 2em;
+}
+
+.toolbar-title > span {
+  display: flex;
+  flex-shrink: 2;
+  /* justify-content: center; */
+  align-items: center;
+  margin: 0;
+  height: 1.25em;
+}
+
+.my-location {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+
+mat-toolbar {
+  height: 4em;
+}
+
+.location-search {
+  margin-top: 2em;
+  margin-left: 2em;
+  margin-right: 2em;
+  width: 10em;
+}

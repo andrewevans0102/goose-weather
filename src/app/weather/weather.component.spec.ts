@@ -13,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AngularMaterialModule } from '../../angular-material/angular-material.module';
 import { StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from '../reducers';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 describe('WeatherComponent', () => {
   let component: WeatherComponent;
@@ -32,6 +33,8 @@ describe('WeatherComponent', () => {
         HttpClientModule,
         AngularMaterialModule,
         StoreModule.forRoot(reducers, { metaReducers }),
+        FormsModule,
+        ReactiveFormsModule
       ]
     }).compileComponents();
   }));

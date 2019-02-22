@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { map, startWith, take } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { WeatherService } from '../services/weather.service';
-import { WeatherData } from '../models/weather-data/weather-data';
 import { CurrentConditionsComponent } from '../cards/current-conditions/current-conditions.component';
 import { WeatherDiscussionComponent } from '../cards/weather-discussion/weather-discussion.component';
 import { WeeklyForecastComponent } from '../cards/weekly-forecast/weekly-forecast.component';
@@ -13,6 +12,11 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../reducers';
 import { UpdateLocations, LoadLocations } from '../actions/location.actions';
 import { LocationData } from '../models/location-data/location-data';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import * as USCities from '../../assets/us_cities.json';
+import { City } from '../models/city/city';
+import { MatAutocompleteSelectedEvent } from '@angular/material';
 
 @Component({
   selector: 'app-weather',
@@ -29,12 +33,18 @@ export class WeatherComponent implements OnInit {
   spinnerColor = 'primary';
   spinnerSize = 8;
   locationData: LocationData = new LocationData();
+  citiesCtrl = new FormControl();
+  filteredCities: Observable<City[]>;
+  cities = [];
+  mobileView = false;
 
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
       if (matches) {
+        this.mobileView = true;
         return this.cardsMobile;
       } else {
+        this.mobileView = false;
         return this.cardsDesktop;
       }
     })
@@ -108,6 +118,43 @@ export class WeatherComponent implements OnInit {
         component: AboutMobileComponent
       }
     ];
+
+    // push a value to the list of locations so the user can go back to where they started
+    const homeCity: City = {
+      capital: '',
+      state: '',
+      latitude: '',
+      longitude: '',
+      combinedName: '(your location)'
+    };
+    this.cities.push(homeCity);
+
+    // read in file of US capital citys for selection
+    // source https://gist.github.com/jpriebe/d62a45e29f24e843c974
+    const citiesJSON = JSON.stringify(USCities);
+    const parsedCities = JSON.parse(citiesJSON);
+    parsedCities.default.forEach((parsedCity) => {
+      const city: City = {
+        capital: parsedCity.capital,
+        state: parsedCity.abbr,
+        latitude: parsedCity.lat,
+        longitude: parsedCity.long,
+        combinedName: parsedCity.capital + ', ' + parsedCity.abbr
+      };
+      this.cities.push(city);
+    });
+
+    this.filteredCities = this.citiesCtrl.valueChanges
+    .pipe(
+      startWith(''),
+      map(city => city ? this._filterCities(city) : this.cities.slice())
+    );
+  }
+
+  private _filterCities(value: string): City[] {
+    const filterValue = value.toLowerCase();
+
+    return this.cities.filter(city => city.capital.toLowerCase().indexOf(filterValue) === 0);
   }
 
   ngOnInit(): void {
@@ -123,37 +170,23 @@ export class WeatherComponent implements OnInit {
   savePosition(position) {
     this.locationData.latitude = position.coords.latitude.toFixed(4).toString();
     this.locationData.longitude = position.coords.longitude.toFixed(4).toString();
-
-    // check local storage for updates
-    const localStorageWeatherData = window.localStorage.getItem('weather');
-    const weatherDataLocalStorage: WeatherData = JSON.parse(localStorageWeatherData);
-    const updateWeather = this.checkStoreDataForUpdates(weatherDataLocalStorage, this.locationData);
-    if (updateWeather) {
-      // side effect is update weather
-      this.store.dispatch(new UpdateLocations({locationData: this.locationData}));
-    } else {
-      this.store.dispatch(new LoadLocations({locationData: this.locationData}));
+    for (const city of this.cities) {
+      if (city.combinedName === '(your location)') {
+        city.latitude = this.locationData.latitude;
+        city.longitude = this.locationData.longitude;
+      }
     }
+
+    this.store.dispatch(new LoadLocations({locationData: this.locationData}));
   }
 
-  checkStoreDataForUpdates(weatherData: WeatherData, locationData: LocationData): boolean {
-    if (weatherData === null || weatherData === undefined) {
-      return true;
-    } else {
-      if (weatherData.currentConditions.longitude !== locationData.longitude ||
-          weatherData.currentConditions.latitude !== locationData.latitude) {
-          // update if coordinates are different
-          return true;
-      }
-
-      // update if data is older than 30 minutes
-      const nowDate = new Date();
-      const lastThirtyMin = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), nowDate.getHours(),
-        nowDate.getMinutes() - 30);
-      // put date in same format for comparision
-      const compareTime = new Date(weatherData.weatherDate);
-      if (compareTime < lastThirtyMin) {
-        return true;
+  onSelectionChanged(event: MatAutocompleteSelectedEvent) {
+    for (const city of this.cities) {
+      if (city.combinedName === event.option.value) {
+        this.locationData.latitude = city.latitude;
+        this.locationData.longitude = city.longitude;
+        this.store.dispatch(new UpdateLocations({locationData: this.locationData}));
+        break;
       }
     }
   }

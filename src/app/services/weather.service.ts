@@ -63,11 +63,6 @@ export class WeatherService {
         ));
   }
 
-  getWeatherLocalStorage(): Observable<WeatherData> {
-    const localStorageWeatherData: WeatherData = JSON.parse(window.localStorage.getItem('weather'));
-    return of(localStorageWeatherData);
-  }
-
   // method implementation copied from angular documentation
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
