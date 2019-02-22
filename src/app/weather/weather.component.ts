@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { map, startWith, take } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { WeatherService } from '../services/weather.service';
 import { WeatherData } from '../models/weather-data/weather-data';
@@ -10,6 +10,11 @@ import { HourlyForecastComponent } from '../cards/hourly-forecast/hourly-forecas
 import { AboutDesktopComponent } from '../cards/about-desktop/about-desktop.component';
 import { AboutMobileComponent } from '../cards/about-mobile/about-mobile.component';
 import { LocationData } from '../models/location-data/location-data';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { MatAutocompleteSelectedEvent } from '@angular/material';
+import * as USCities from '../../assets/us_cities.json';
+import { City } from '../models/city/city';
 
 @Component({
   selector: 'app-weather',
@@ -27,6 +32,9 @@ export class WeatherComponent implements OnInit {
   spinnerColor = 'primary';
   spinnerSize = 8;
   locationData: LocationData = new LocationData();
+  citiesCtrl = new FormControl();
+  filteredCities: Observable<City[]>;
+  cities = [];
 
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
@@ -106,6 +114,44 @@ export class WeatherComponent implements OnInit {
         component: AboutMobileComponent
       }
     ];
+
+    // push a value to the list of locations so the user can go back to where they started
+    const homeCity: City = {
+      capital: '',
+      state: '',
+      latitude: '',
+      longitude: '',
+      combinedName: '(your location)'
+    };
+    this.cities.push(homeCity);
+
+    // read in file of US capital citys for selection
+    // source https://gist.github.com/jpriebe/d62a45e29f24e843c974
+    const citiesJSON = JSON.stringify(USCities);
+    const parsedCities = JSON.parse(citiesJSON);
+    parsedCities.default.forEach((parsedCity) => {
+      const city: City = {
+        capital: parsedCity.capital,
+        state: parsedCity.abbr,
+        latitude: parsedCity.lat,
+        longitude: parsedCity.long,
+        combinedName: parsedCity.capital + ', ' + parsedCity.abbr
+      };
+      this.cities.push(city);
+    });
+    console.log(this.cities);
+
+    this.filteredCities = this.citiesCtrl.valueChanges
+    .pipe(
+      startWith(''),
+      map(city => city ? this._filterCities(city) : this.cities.slice())
+    );
+  }
+
+  private _filterCities(value: string): City[] {
+    const filterValue = value.toLowerCase();
+
+    return this.cities.filter(city => city.capital.toLowerCase().indexOf(filterValue) === 0);
   }
 
   ngOnInit(): void {
@@ -121,9 +167,29 @@ export class WeatherComponent implements OnInit {
   savePosition(position) {
     this.locationData.latitude = position.coords.latitude.toFixed(4).toString();
     this.locationData.longitude = position.coords.longitude.toFixed(4).toString();
+    for (const city of this.cities) {
+      if(city.combinedName === '(your location)') {
+        city.latitude = this.locationData.latitude;
+        city.longitude = this.locationData.longitude;
+      }
+    }
 
     this.weatherService.getWeather(this.locationData)
+      .pipe(take(1))
       .subscribe(weather => this.weatherData = weather);
   }
 
+  onSelectionChanged(event: MatAutocompleteSelectedEvent) {
+    for (const city of this.cities) {
+      if(city.combinedName === event.option.value) {
+        this.locationData.latitude = city.latitude;
+        this.locationData.longitude = city.longitude;
+        this.weatherService.getWeather(this.locationData)
+          .pipe(take(1))
+          .subscribe(weather => this.weatherData = weather);
+
+        break;
+      }
+    }
+  }
 }

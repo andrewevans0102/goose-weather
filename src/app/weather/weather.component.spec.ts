@@ -12,6 +12,7 @@ import { WeatherComponent } from './weather.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AngularMaterialModule } from '../../angular-material/angular-material.module';
 import { NgxdModule } from '@ngxd/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 describe('WeatherComponent', () => {
   let component: WeatherComponent;
@@ -30,7 +31,9 @@ describe('WeatherComponent', () => {
         MatMenuModule,
         HttpClientModule,
         AngularMaterialModule,
-        NgxdModule
+        NgxdModule,
+        FormsModule,
+        ReactiveFormsModule
       ]
     }).compileComponents();
   }));

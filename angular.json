@@ -132,8 +132,5 @@
       }
     }
   },
-  "defaultProject": "goose-weather",
-  "cli": {
-    "defaultCollection": "@ngrx/schematics"
-  }
+  "defaultProject": "goose-weather"
 }

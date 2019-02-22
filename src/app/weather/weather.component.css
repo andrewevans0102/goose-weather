@@ -57,3 +57,46 @@
 mat-spinner {
   margin: 20em;
 }
+
+.toolbar-icon {
+  padding: 0 14px;
+  margin-right: 1em;
+}
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.location-search {
+  /* width: 50%; */
+}
+
+.goose-image {
+  margin-right: 0.5em;
+}
+
+.toolbar-title {
+  margin-right: 0.5em;
+  display: flex;
+  flex-direction: column;
+}
+
+.toolbar-title > span {
+  display: flex;
+  flex-shrink: 2;
+  /* justify-content: center; */
+  align-items: center;
+  margin: 0;
+  height: 1.25em;
+}
+
+.my-location {
+  margin-left: 2em;
+  margin-right: 2em;
+}

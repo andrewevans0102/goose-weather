@@ -15,7 +15,7 @@ import { HourlyForecastComponent } from './cards/hourly-forecast/hourly-forecast
 import { AboutMobileComponent } from './cards/about-mobile/about-mobile.component';
 import { AboutDesktopComponent } from './cards/about-desktop/about-desktop.component';
 import { NgxdModule } from '@ngxd/core';
-// import 'hammerjs';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -47,7 +47,8 @@ import { NgxdModule } from '@ngxd/core';
     MatPaginatorModule,
     MatSortModule,
     NgxdModule,
-    // hammerjs
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

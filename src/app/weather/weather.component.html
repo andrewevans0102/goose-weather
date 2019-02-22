@@ -1,14 +1,19 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span class="goose-image"><img src="./assets/goose_small.svg"></span>
+    <span class="toolbar-title"><span>Goose</span><span>Weather</span></span>
+    <span class="toolbar-spacer"></span>
+    <mat-form-field class="location-search">
+      <input matInput [matAutocomplete]="auto" [formControl]="citiesCtrl" placeholder="Select Location">
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelectionChanged($event)">
+        <mat-option *ngFor="let city of filteredCities | async" [value]="city.combinedName">
+          <span>{{city.combinedName}}</span>
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </mat-toolbar-row>
+</mat-toolbar>
 <div class="page">
-  <div class="top-container page">
-    <div class="first-row">
-      <h1 class="display-4">Welcome to Goose Weather!</h1>
-      <img src='./assets/goose.svg'>
-    </div>
-    <div class="second-row">
-      <p class="lead">A Weather App that uses <a href="https://www.weather.gov/documentation/services-web-api">NOAA APIs</a> and the <a href="https://openweathermap.org/api">Open Weather Map API</a> to present weather information</p>
-      <hr class="my-4">
-    </div>
-  </div>
   <mat-grid-list cols="3" rowHeight="29em">
     <mat-grid-tile *ngFor="let card of cards | async"  [colspan]="card.cols" [rowspan]="card.rows">
       <mat-card class="dashboard-card">
