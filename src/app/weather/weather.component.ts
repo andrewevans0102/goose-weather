@@ -35,6 +35,7 @@ export class WeatherComponent implements OnInit {
   citiesCtrl = new FormControl();
   filteredCities: Observable<City[]>;
   cities = [];
+  selectedLocation = '';
 
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
@@ -139,7 +140,6 @@ export class WeatherComponent implements OnInit {
       };
       this.cities.push(city);
     });
-    console.log(this.cities);
 
     this.filteredCities = this.citiesCtrl.valueChanges
     .pipe(
@@ -184,6 +184,7 @@ export class WeatherComponent implements OnInit {
       if (city.combinedName === event.option.value) {
         this.locationData.latitude = city.latitude;
         this.locationData.longitude = city.longitude;
+        this.weatherData = null;
         this.weatherService.getWeather(this.locationData)
           .pipe(take(1))
           .subscribe(weather => this.weatherData = weather);

@@ -143,8 +143,6 @@ export class WeatherService {
   getNoaaMetadata(lat: string, long: string): Observable<any> {
     const noaaMetaDataEndpoint = environment.noaaMetaDataEndpoint;
     const metadataURL: string = noaaMetaDataEndpoint + lat + ',' + long;
-    console.log('metadata');
-    console.log(metadataURL);
     return this.http.get(metadataURL)
       .pipe(
         catchError(this.handleError)
@@ -152,8 +150,6 @@ export class WeatherService {
   }
 
   getNoaaHourlyForecast(hourlyURL): Observable<any> {
-    console.log('hourly');
-    console.log(hourlyURL);
     return this.http.get(hourlyURL)
       .pipe(
         catchError(this.handleError)
@@ -161,8 +157,6 @@ export class WeatherService {
   }
 
   getNoaaWeeklyForecast(forecastURL): Observable<any> {
-    console.log('weekly');
-    console.log(forecastURL);
     return this.http.get(forecastURL)
       .pipe(
         catchError(this.handleError)
@@ -176,10 +170,6 @@ export class WeatherService {
     const units = 'imperial';
     const openWeatherMapAPIURL = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + long
       + '&units=' + units + '&appid=' + APIKey;
-    // return this.http.get(openWeatherMapAPIURL).toPromise()
-    //   .catch(() => new Error('error when calling openWeatherMapURL'));
-    console.log('openWeather');
-    console.log(openWeatherMapAPIURL);
     return this.http.get(openWeatherMapAPIURL)
       .pipe(
         catchError(this.handleError)
