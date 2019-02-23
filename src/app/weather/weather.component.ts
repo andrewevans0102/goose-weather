@@ -10,7 +10,7 @@ import { AboutDesktopComponent } from '../cards/about-desktop/about-desktop.comp
 import { AboutMobileComponent } from '../cards/about-mobile/about-mobile.component';
 import { Store } from '@ngrx/store';
 import { AppState } from '../reducers';
-import { UpdateLocations, LoadLocations } from '../actions/location.actions';
+import { LoadLocations } from '../actions/location.actions';
 import { LocationData } from '../models/location-data/location-data';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -187,9 +187,10 @@ export class WeatherComponent implements OnInit {
         this.locationData.latitude = city.latitude;
         this.locationData.longitude = city.longitude;
         this.store.dispatch(new LoadWeather({weatherData: null}));
-        this.store.dispatch(new UpdateLocations({locationData: this.locationData}));
+        this.store.dispatch(new LoadLocations({locationData: this.locationData}));
         break;
       }
     }
   }
+
 }

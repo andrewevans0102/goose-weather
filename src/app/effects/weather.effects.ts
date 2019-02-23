@@ -5,24 +5,11 @@ import { map, mergeMap, catchError } from 'rxjs/operators';
 import { AppState } from '../reducers';
 import { Store } from '@ngrx/store';
 import { WeatherService } from '../services/weather.service';
-import { LocationActionTypes, LocationsError, UpdateLocations, LoadLocations } from '../actions/location.actions';
+import { LocationActionTypes, LocationsError, LoadLocations } from '../actions/location.actions';
 import { of } from 'rxjs';
 
 @Injectable()
 export class WeatherEffects {
-
-  @Effect({dispatch: false})
-  updateLocation$ = this.actions$
-    .pipe(
-      ofType<UpdateLocations>(LocationActionTypes.UpdateLocations),
-      mergeMap((action) => this.weatherService.getWeather(action.payload.locationData)
-        .pipe(
-          map(weather => {
-            this.store.dispatch(new LoadWeather({weatherData: weather}));
-          }),
-          catchError(() => of(new LocationsError()))
-        ))
-  );
 
   @Effect({dispatch: false})
   loadLocation$ = this.actions$

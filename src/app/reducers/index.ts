@@ -6,7 +6,7 @@ import { LocationActionTypes, LocationAction } from '../actions/location.actions
 import { LocationData } from '../models/location-data/location-data';
 
 export interface WeatherState {
-  weatherData: WeatherData|null;
+  weatherData: WeatherData| null;
 }
 
 const initialWeatherState: WeatherState = {
