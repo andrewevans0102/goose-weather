@@ -4,7 +4,7 @@ import sys
 with open('src/environments/environment.ts', 'r') as file :
   filedata = file.read()
 
-filedata = filedata.replace('open_weather_map_api_key', sys.argv[1])
+filedata = filedata.replace('OPEN_WEATHER_MAP_API_KEY', sys.argv[1])
 
 with open('src/environments/environment.ts', 'w') as file:
   file.write(filedata)
@@ -13,7 +13,7 @@ with open('src/environments/environment.ts', 'w') as file:
 with open('src/environments/environment.prod.ts', 'r') as file :
   filedata = file.read()
 
-filedata = filedata.replace('open_weather_map_api_key', sys.argv[1])
+filedata = filedata.replace('OPEN_WEATHER_MAP_API_KEY', sys.argv[1])
 
 with open('src/environments/environment.prod.ts', 'w') as file:
   file.write(filedata)
