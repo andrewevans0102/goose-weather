@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  openWeatherMapAPIKey: 'goose',
+  openWeatherMapAPIKey: 'open_weather_map_api_key',
   noaaMetaDataEndpoint: 'https://api.weather.gov/points/'
 };
 

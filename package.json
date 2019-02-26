@@ -16,7 +16,8 @@
     "code-coverage": "npm run delete-coverage && npm run coverage-report",
     "build-prod": "ng build --prod",
     "test-prod": "ng test --watch=false",
-    "firebase-deploy": "firebase deploy"
+    "firebase-deploy": "firebase deploy",
+    "environment-variables": "python scripts/environment_variables.py $OPEN_WEATHER_MAP_API_KEY"
   },
   "private": true,
   "dependencies": {
