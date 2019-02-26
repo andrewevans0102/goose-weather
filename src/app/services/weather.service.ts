@@ -178,24 +178,94 @@ export class WeatherService {
     let conditionIcon = '';
 
     switch (iconAPI) {
-      case '01d' || '01n' || '50d' || '50n': {
+      case '01d': {
         // clear sky day
         conditionIcon = './assets/sun.svg';
         break;
       }
-      case '02d' || '02n' || '03d' || '03n' || '04d' || '04n': {
+      case '01n': {
+        // clear sky night
+        conditionIcon = './assets/clear_sky_night.png';
+        break;
+      }
+      case '02d': {
         // few clouds day
         conditionIcon = './assets/clouds.svg';
         break;
       }
-      case '09d' || '09n' || '10d' || '10n' || '11d' || '11n': {
-        // shower rain day
-        conditionIcon = './assets/rain.svg';
+      case '02n': {
+        // few clouds night
+        conditionIcon = './assets/few_clouds_night.png';
         break;
       }
-      case '13d' || '13n': {
+      case '03d': {
+        // scattered clouds
+        conditionIcon = './assets/clouds.svg';
+        break;
+      }
+      case '03n': {
+        // few clouds night
+        conditionIcon = './assets/few_clouds_night.png';
+        break;
+      }
+      case '04d': {
+        // broken clouds
+        conditionIcon = './assets/clouds.svg';
+        break;
+      }
+      case '04n': {
+        // few clouds night
+        conditionIcon = './assets/few_clouds_night.png';
+        break;
+      }
+      case '09d': {
+        // shower rain day
+        conditionIcon = './assets/shower_rain_day.png';
+        break;
+      }
+      case '09n': {
+        // shower rain night
+        conditionIcon = './assets/shower_rain_night.png';
+        break;
+      }
+      case '10d': {
+        // shower rain day
+        conditionIcon = './assets/shower_rain_day.png';
+        break;
+      }
+      case '10n': {
+        // shower rain night
+        conditionIcon = './assets/shower_rain_night.png';
+        break;
+      }
+      case '11d': {
+        // shower rain day
+        conditionIcon = './assets/shower_rain_day.png';
+        break;
+      }
+      case '11n': {
+        // shower rain night
+        conditionIcon = './assets/shower_rain_night.png';
+        break;
+      }
+      case '13d': {
         // snow day
         conditionIcon = './assets/snow.png';
+        break;
+      }
+      case '13n': {
+        // snow day
+        conditionIcon = './assets/snow.png';
+        break;
+      }
+      case '50d': {
+        // fog day
+        conditionIcon = './assets/fog_day.png';
+        break;
+      }
+      case '50n': {
+        // fog night
+        conditionIcon = './assets/fog_night.png';
         break;
       }
       default: {

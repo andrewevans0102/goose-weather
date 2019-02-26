@@ -12,6 +12,9 @@ jobs:
             - run:
                 name: Show current directory
                 command: pwd
+            - run:
+                name: environment variables
+                command: python scripts/environment_variables.py $OPEN_WEATHER_MAP_API_KEY
             - restore_cache:
                 keys:
                     - v1-dependencies-{{ checksum "package.json" }}
@@ -53,7 +56,7 @@ jobs:
                 command: npm install --save-dev firebase-tools
             - run:
                 name: Deploy Master to Firebase
-                command: npm run firebase-deploy -- --token=$FIREBASE_TOKEN
+                command: npm run firebase-deploy
 
 workflows:
     version: 2
