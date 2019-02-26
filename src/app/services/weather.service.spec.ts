@@ -51,8 +51,10 @@ describe('WeatherService', () => {
       latitude: '37.6584',
       longitude: '-77.6526'
     };
-    const openWeatherMapAPIURL
-      = 'https://api.openweathermap.org/data/2.5/weather?lat=37.6584&lon=-77.6526&units=imperial&appid=9722c5aa290524f2659c9eeb513ee78f';
+    const APIKey = environment.openWeatherMapAPIKey;
+    const units = 'imperial';
+    const openWeatherMapAPIURL = 'https://api.openweathermap.org/data/2.5/weather?lat=' + locationData.latitude
+      + '&lon=' + locationData.longitude + '&units=' + units + '&appid=' + APIKey;
 
     weatherService.getCurrentWeatherOpenWeatherMapAPI(locationData.latitude, locationData.longitude)
       .subscribe(result => expect(result).toEqual(currentConditions));
