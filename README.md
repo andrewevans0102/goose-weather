@@ -2,7 +2,7 @@
 ![goose image](/src/assets/goose.svg)
 - Project built with Angular 7
 - Project uses NOAA APIs [here](https://www.weather.gov/documentation/services-web-api)
-- Project uses the Open Weather Map API [here](https://openweathermap.org/api)
+- Project uses the Open Weather Map API [here](https://openweathermap.org/api).  You'll need to create a key to use this service using the page [here](https://openweathermap.org/appid)
 - Project is hosted on Firebase [here](https://firebase.google.com/)
 - Project CICD pipeline is managed with CirlceCI [here](https://circleci.com/)
 - Used Angular CDK Schematic to generate the tiles and the hourly forecast
