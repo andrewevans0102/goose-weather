@@ -9,14 +9,15 @@ export enum LocationActionTypes {
 export class LocationAction implements Action {
   type: string;
   payload: {
-    locationData: LocationData
+    locationData: LocationData,
+    error: string
   };
 }
 
 export class LoadLocations implements Action {
   readonly type = LocationActionTypes.LoadLocations;
 
-  constructor(readonly payload: {locationData: LocationData}) {
+  constructor(readonly payload: {locationData: LocationData, error: null}) {
 
   }
 }
@@ -24,8 +25,8 @@ export class LoadLocations implements Action {
 export class LocationsError implements Action {
   readonly type = LocationActionTypes.LocationsError;
 
-  constructor(errorMessage: string) {
-    alert(errorMessage);
+  constructor(readonly payload: {locationData: null, error: string}) {
+
   }
 }
 

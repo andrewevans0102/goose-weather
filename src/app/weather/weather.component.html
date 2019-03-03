@@ -18,6 +18,9 @@
     </mat-toolbar-row>
   </mat-toolbar>
   <div class="page">
+    <div *ngIf="error != undefined">
+      <h1 class="alert alert-danger">Error: {{ error }}</h1>
+    </div>
     <mat-grid-list cols="3" rowHeight="29em">
       <mat-grid-tile *ngFor="let card of cards | async"  [colspan]="card.cols" [rowspan]="card.rows">
         <mat-card class="dashboard-card">

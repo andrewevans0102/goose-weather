@@ -6,7 +6,7 @@ import { AppState } from '../reducers';
 import { Store } from '@ngrx/store';
 import { WeatherService } from '../services/weather.service';
 import { LocationActionTypes, LocationsError, LoadLocations } from '../actions/location.actions';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 
 @Injectable()
 export class WeatherEffects {
@@ -20,7 +20,7 @@ export class WeatherEffects {
           map(weather => {
             this.store.dispatch(new LoadWeather({weatherData: weather}));
           }),
-          catchError((error) => of(new LocationsError(error)))
+          catchError((errorMessage) => throwError(this.store.dispatch(new LocationsError({locationData: null, error: errorMessage}))))
         ))
   );
 

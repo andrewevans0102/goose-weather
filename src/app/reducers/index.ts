@@ -4,6 +4,7 @@ import { WeatherData } from '../models/weather-data/weather-data';
 import { WeatherActionTypes, WeatherAction } from '../actions/weather.actions';
 import { LocationActionTypes, LocationAction } from '../actions/location.actions';
 import { LocationData } from '../models/location-data/location-data';
+import { state } from '@angular/animations';
 
 export interface WeatherState {
   weatherData: WeatherData| null;
@@ -15,10 +16,12 @@ const initialWeatherState: WeatherState = {
 
 export interface LocationState {
   location: LocationData| null;
+  error: string| null;
 }
 
 const initialLocationState: LocationState = {
-  location: null
+  location: null,
+  error: null
 };
 
 export interface AppState {
@@ -42,7 +45,14 @@ export function locationReducer(state: LocationState = initialLocationState, act
   switch (action.type) {
     case LocationActionTypes.LoadLocations:
       return {
-        location: action.payload.locationData
+        location: action.payload.locationData,
+        error: null
+      };
+
+    case LocationActionTypes.LocationsError:
+      return {
+        location: null,
+        error: action.payload.error
       };
 
     default:
@@ -57,5 +67,7 @@ export const reducers: ActionReducerMap<AppState> = {
 };
 
 export const selectWeather = (state: AppState) => state.weather.weatherData;
+
+export const selectError = (state: AppState) => state.location.error;
 
 export const metaReducers: MetaReducer<any>[] = !environment.production ? [] : [];

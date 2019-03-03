@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { map, startWith } from 'rxjs/operators';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { map, startWith, takeUntil } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { WeatherService } from '../services/weather.service';
 import { CurrentConditionsComponent } from '../cards/current-conditions/current-conditions.component';
@@ -9,11 +9,11 @@ import { HourlyForecastComponent } from '../cards/hourly-forecast/hourly-forecas
 import { AboutDesktopComponent } from '../cards/about-desktop/about-desktop.component';
 import { AboutMobileComponent } from '../cards/about-mobile/about-mobile.component';
 import { Store } from '@ngrx/store';
-import { AppState } from '../reducers';
+import { AppState, selectError } from '../reducers';
 import { LoadLocations } from '../actions/location.actions';
 import { LocationData } from '../models/location-data/location-data';
 import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import * as USCities from '../../assets/us_cities.json';
 import { City } from '../models/city/city';
 import { MatAutocompleteSelectedEvent } from '@angular/material';
@@ -24,7 +24,7 @@ import { LoadWeather } from '../actions/weather.actions';
   templateUrl: './weather.component.html',
   styleUrls: ['./weather.component.css']
 })
-export class WeatherComponent implements OnInit {
+export class WeatherComponent implements OnInit, OnDestroy {
 
   lat: string;
   long: string;
@@ -38,6 +38,8 @@ export class WeatherComponent implements OnInit {
   filteredCities: Observable<City[]>;
   cities = [];
   mobileView = false;
+  error: string;
+  private unsubscribeError: Subject<void> = new Subject<void>();
 
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
@@ -159,6 +161,11 @@ export class WeatherComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.store
+      .select(selectError)
+      .pipe(takeUntil(this.unsubscribeError))
+      .subscribe((error) => this.error = error);
+
     try {
       navigator.geolocation.getCurrentPosition((position) => {
         this.savePosition(position);
@@ -178,7 +185,7 @@ export class WeatherComponent implements OnInit {
       }
     }
 
-    this.store.dispatch(new LoadLocations({locationData: this.locationData}));
+    this.store.dispatch(new LoadLocations({locationData: this.locationData, error: null}));
   }
 
   onSelectionChanged(event: MatAutocompleteSelectedEvent) {
@@ -187,10 +194,14 @@ export class WeatherComponent implements OnInit {
         this.locationData.latitude = city.latitude;
         this.locationData.longitude = city.longitude;
         this.store.dispatch(new LoadWeather({weatherData: null}));
-        this.store.dispatch(new LoadLocations({locationData: this.locationData}));
+        this.store.dispatch(new LoadLocations({locationData: this.locationData, error: null}));
         break;
       }
     }
+  }
+
+  ngOnDestroy() {
+    this.unsubscribeError.next();
   }
 
 }
