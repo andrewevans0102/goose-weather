@@ -18,10 +18,10 @@
     <p><span class="title">Wind</span><span>{{ data.currentConditions.windSpeed }} MPH {{ data.currentConditions.windDirection }}</span></p>
   </mat-grid-tile>
   <mat-grid-tile [colspan]="1" [rowspan]="1">
-    <p><span class="title">Sunrise</span><span>{{ data.currentConditions.sunrise }}</span></p>
+    <p><span class="title">Sunrise</span><span>{{ data.currentConditions.sunrise | date:'shortTime' }}</span></p>
   </mat-grid-tile>
   <mat-grid-tile [colspan]="1" [rowspan]="1">
-    <p><span class="title">Sunset</span><span>{{ data.currentConditions.sunset }}</span></p>
+    <p><span class="title">Sunset</span><span>{{ data.currentConditions.sunset | date:'shortTime' }}</span></p>
   </mat-grid-tile>
   <mat-grid-tile [colspan]="2" [rowspan]="2">
     <img src={{data.currentConditions.icon}}>

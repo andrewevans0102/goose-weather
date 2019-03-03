@@ -24,8 +24,8 @@ export class LoadLocations implements Action {
 export class LocationsError implements Action {
   readonly type = LocationActionTypes.LocationsError;
 
-  constructor() {
-    alert('Error occured when loading weather');
+  constructor(errorMessage: string) {
+    alert(errorMessage);
   }
 }
 

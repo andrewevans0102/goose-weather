@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { WeatherData } from '../models/weather-data/weather-data';
 import { WeeklyForecast } from '../models/weekly-forecast/weekly-forecast';
@@ -21,13 +21,13 @@ export class WeatherService {
   constructor(private http: HttpClient, private store: Store<AppState>) { }
 
   getWeather(locationData: LocationData): Observable<any> {
-    return this.getNoaaMetadata(locationData.latitude, locationData.longitude)
+    return this.getNoaaMetadata(locationData)
       .pipe(
         mergeMap( metadata => this.getNoaaWeeklyForecast(metadata.properties.forecast)
           .pipe(
             mergeMap( weeklyForecast => this.getNoaaHourlyForecast(metadata.properties.forecastHourly)
               .pipe(
-                mergeMap( hourlyForecast => this.getCurrentWeatherOpenWeatherMapAPI(locationData.latitude, locationData.longitude)
+                mergeMap( hourlyForecast => this.getCurrentWeatherOpenWeatherMapAPI(locationData)
                   .pipe(
                     map((currentWeather) => {
                       // metadata
@@ -60,23 +60,11 @@ export class WeatherService {
                     }))
                 ))
             ))
-        ));
-  }
-
-  // method implementation copied from angular documentation
-  private handleError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {
-      // clientside
-      console.error('An error occurred:', error.error.message);
-    } else {
-      // backend
-      console.error(
-        `Backend returned code ${error.status}, ` +
-        `body was: ${error.error}`);
-    }
-    // custom error to be caught
-    return throwError(
-      'An error occured when calling APIs');
+        ),
+        catchError(err => {
+          return throwError(err);
+        })
+      );
   }
 
   getWindDirectionFromDegreeAngle(degreeAngle: number): string {
@@ -100,76 +88,48 @@ export class WeatherService {
     return windDirection;
   }
 
-  createDateFromMillseconds(milliseconds: number): string {
-    // helpeful stackoverflow article here
-    // https://stackoverflow.com/questions/8362952/output-javascript-date-in-yyyy-mm-dd-hhmsec-format
-    // Note that time is Eastern Standard Format
-    // Eastern Standard is 5 hours behind UTC
+  createDateFromMillseconds(milliseconds: number): Date {
     const dMill = new Date(0);
     dMill.setUTCSeconds(milliseconds);
-    let dateMinutes = '';
-    let dateHours = '';
-    let dateFormatted = '';
 
-    // minutes
-    dateMinutes = String(dMill.getUTCMinutes());
-    if (dateMinutes.length < 2) {
-      dateMinutes = '0' + dateMinutes;
-    }
-
-    // hours
-    const hourNumber = dMill.getUTCHours() - 5;
-    if (hourNumber > 12) {
-      dateHours = String(hourNumber - 12);
-    } else {
-      dateHours = String(hourNumber);
-    }
-    if (dateHours.length < 2) {
-      dateHours = '0' + dateHours;
-    }
-
-    if (hourNumber > 12) {
-      dateFormatted = dateHours + ':' + dateMinutes + ' PM';
-    } else {
-      dateFormatted = dateHours + ':' + dateMinutes + ' AM';
-    }
-
-    return dateFormatted;
+    return dMill;
   }
 
-  getNoaaMetadata(lat: string, long: string): Observable<any> {
+  getNoaaMetadata(locationData: LocationData): Observable<any> {
     const noaaMetaDataEndpoint = environment.noaaMetaDataEndpoint;
-    const metadataURL: string = noaaMetaDataEndpoint + lat + ',' + long;
+    const metadataURL: string = noaaMetaDataEndpoint + locationData.latitude + ',' + locationData.longitude;
     return this.http.get(metadataURL)
       .pipe(
-        catchError(this.handleError)
+        catchError(err => {
+          return throwError('error when retrieving weather metadata');
+        })
       );
   }
 
   getNoaaHourlyForecast(hourlyURL): Observable<any> {
     return this.http.get(hourlyURL)
       .pipe(
-        catchError(this.handleError)
+        catchError(() => throwError('error when retrieving hourly forecast'))
       );
   }
 
   getNoaaWeeklyForecast(forecastURL): Observable<any> {
     return this.http.get(forecastURL)
       .pipe(
-        catchError(this.handleError)
+        catchError(() => throwError('error when retrieving weekly forecast'))
       );
   }
 
-  getCurrentWeatherOpenWeatherMapAPI(lat: string, long: string): Observable<any> {
+  getCurrentWeatherOpenWeatherMapAPI(locationData: LocationData): Observable<any> {
     const APIKey = environment.openWeatherMapAPIKey;
     // default units are kelvin https://openweathermap.org/current
     // pass the unit imperial here to use Farenheit
     const units = 'imperial';
-    const openWeatherMapAPIURL = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + long
-      + '&units=' + units + '&appid=' + APIKey;
+    const openWeatherMapAPIURL = 'https://api.openweathermap.org/data/2.5/weather?lat=' + locationData.latitude + '&lon='
+      + locationData.longitude + '&units=' + units + '&appid=' + APIKey;
     return this.http.get(openWeatherMapAPIURL)
       .pipe(
-        catchError(this.handleError)
+        catchError(() => throwError('error when retrieving current conditions'))
       );
   }
 

@@ -20,7 +20,7 @@ export class WeatherEffects {
           map(weather => {
             this.store.dispatch(new LoadWeather({weatherData: weather}));
           }),
-          catchError(() => of(new LocationsError()))
+          catchError((error) => of(new LocationsError(error)))
         ))
   );
 

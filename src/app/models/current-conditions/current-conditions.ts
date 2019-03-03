@@ -8,7 +8,7 @@ export class CurrentConditions {
   humidity = '';
   windSpeed = '';
   windDirection = '';
-  sunrise = '';
-  sunset = '';
+  sunrise: Date;
+  sunset: Date;
   icon = '';
 }

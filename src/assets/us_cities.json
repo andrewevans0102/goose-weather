@@ -348,5 +348,33 @@
   "capital": "Cheyenne",
   "lat": "41.145548",
   "long": "-104.802042"
+  },
+  {
+  "abbr": "CA",
+  "name": "California",
+  "capital": "Mountain View",
+  "lat": "37.386051",
+  "long": "-122.083855"
+  },
+  {
+    "abbr": "WA",
+    "name": "Washington",
+    "capital": "Seattle",
+    "lat": "47.608013",
+    "long": "-122.335167"
+  },
+  {
+    "abbr": "VA",
+    "name": "Virginia",
+    "capital": "Newport News",
+    "lat": "37.0870821",
+    "long": "-76.4730122"
+  },
+  {
+    "abbr": "VA",
+    "name": "Virginia",
+    "capital": "Charlottesville",
+    "lat": "38.0293059",
+    "long": "-78.4766781"
   }
 ]

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { map, startWith, take } from 'rxjs/operators';
+import { map, startWith } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { WeatherService } from '../services/weather.service';
 import { CurrentConditionsComponent } from '../cards/current-conditions/current-conditions.component';
