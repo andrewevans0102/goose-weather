@@ -4,7 +4,6 @@ import { WeatherData } from '../models/weather-data/weather-data';
 import { WeatherActionTypes, WeatherAction } from '../actions/weather.actions';
 import { LocationActionTypes, LocationAction } from '../actions/location.actions';
 import { LocationData } from '../models/location-data/location-data';
-import { state } from '@angular/animations';
 
 export interface WeatherState {
   weatherData: WeatherData| null;
