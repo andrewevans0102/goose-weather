@@ -115,3 +115,10 @@ mat-toolbar {
   margin-right: 2em;
   width: 10em;
 }
+
+.error-message{
+  background: red;
+  color: white;
+  font-size: 2em;
+  text-align: center;
+}
