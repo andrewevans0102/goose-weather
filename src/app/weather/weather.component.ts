@@ -163,11 +163,6 @@ export class WeatherComponent implements OnInit {
   ngOnInit(): void {
     this.error$ = this.store.pipe(select(selectError));
 
-    this.store
-      .select(selectError)
-      .pipe(takeUntil(this.unsubscribeError))
-      .subscribe((error) => this.error = error);
-
     try {
       navigator.geolocation.getCurrentPosition((position) => {
         this.savePosition(position);
