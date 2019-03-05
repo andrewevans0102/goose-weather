@@ -8,7 +8,7 @@ import { WeeklyForecastComponent } from '../cards/weekly-forecast/weekly-forecas
 import { HourlyForecastComponent } from '../cards/hourly-forecast/hourly-forecast.component';
 import { AboutDesktopComponent } from '../cards/about-desktop/about-desktop.component';
 import { AboutMobileComponent } from '../cards/about-mobile/about-mobile.component';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { AppState, selectError } from '../reducers';
 import { LoadLocations } from '../actions/location.actions';
 import { LocationData } from '../models/location-data/location-data';
@@ -24,7 +24,7 @@ import { LoadWeather } from '../actions/weather.actions';
   templateUrl: './weather.component.html',
   styleUrls: ['./weather.component.css']
 })
-export class WeatherComponent implements OnInit, OnDestroy {
+export class WeatherComponent implements OnInit {
 
   lat: string;
   long: string;
@@ -38,8 +38,8 @@ export class WeatherComponent implements OnInit, OnDestroy {
   filteredCities: Observable<City[]>;
   cities = [];
   mobileView = false;
-  error: string;
   private unsubscribeError: Subject<void> = new Subject<void>();
+  error$: Observable<any>;
 
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
@@ -161,6 +161,8 @@ export class WeatherComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.error$ = this.store.pipe(select(selectError));
+
     this.store
       .select(selectError)
       .pipe(takeUntil(this.unsubscribeError))
@@ -198,10 +200,6 @@ export class WeatherComponent implements OnInit, OnDestroy {
         break;
       }
     }
-  }
-
-  ngOnDestroy() {
-    this.unsubscribeError.next();
   }
 
 }
