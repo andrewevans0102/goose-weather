@@ -11,17 +11,17 @@ import { of, throwError } from 'rxjs';
 @Injectable()
 export class WeatherEffects {
 
-  @Effect({dispatch: false})
+  @Effect()
   loadLocation$ = this.actions$
     .pipe(
       ofType<LoadLocations>(LocationActionTypes.LoadLocations),
       mergeMap((action) => this.weatherService.getWeather(action.payload.locationData)
-        .pipe(
-          map(weather => {
-            this.store.dispatch(new LoadWeather({weatherData: weather}));
-          }),
-          catchError((errorMessage) => throwError(this.store.dispatch(new LocationsError({locationData: null, error: errorMessage}))))
-        ))
+      .pipe(
+        map(weather => {
+          return (new LoadWeather({weatherData: weather}));
+        }),
+        catchError((errorMessage) => of(new LocationsError({locationData: null, error: errorMessage})))
+      ))
   );
 
   constructor(private actions$: Actions, private store: Store<AppState>, private weatherService: WeatherService) { }
