@@ -1,4 +1,4 @@
-<div class="hourly-forecast" *ngIf="data != undefined; else elseBlock">
+<div class="hourly-forecast" *ngIf="data$ | async as data; else elseBlock">
   <table mat-table [dataSource]="data.hourlyForecast" class="mat-elevation-z8">
     <ng-container matColumnDef="Time">
       <th mat-header-cell *matHeaderCellDef> <span>Time</span> </th>
