@@ -1,4 +1,4 @@
-<mat-grid-list cols="4" rowHeight="4em" *ngIf="data != undefined; else elseBlock">
+<mat-grid-list cols="4" rowHeight="4em" *ngIf="data$ | async as data; else elseBlock">
   <mat-grid-tile [colspan]="2" [rowspan]="1">
     <p><span class="title">Latitude</span><span>{{ data.currentConditions.latitude }}</span></p>
   </mat-grid-tile>

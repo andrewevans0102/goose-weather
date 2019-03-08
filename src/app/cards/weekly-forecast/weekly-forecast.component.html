@@ -1,5 +1,5 @@
 <div class="forecast-tile">
-  <table class="table-responsive-sm" *ngIf="data != undefined; else elseBlock">
+  <table class="table-responsive-sm" *ngIf="data$ | async as data; else elseBlock">
     <tbody>
       <td *ngFor="let weekday of data.weeklyForecast">
         <tr class="name">{{weekday.name}}</tr>
