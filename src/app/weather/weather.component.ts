@@ -26,8 +26,6 @@ import { LoadWeather } from '../actions/weather.actions';
 })
 export class WeatherComponent implements OnInit {
 
-  lat: string;
-  long: string;
   cardsDesktop = [];
   cardsMobile = [];
   displayValues = false;
@@ -188,8 +186,10 @@ export class WeatherComponent implements OnInit {
   onSelectionChanged(event: MatAutocompleteSelectedEvent) {
     for (const city of this.cities) {
       if (city.combinedName === event.option.value) {
-        this.locationData.latitude = city.latitude;
-        this.locationData.longitude = city.longitude;
+        const latitude = parseFloat(city.latitude);
+        const longitude = parseFloat(city.longitude);
+        this.locationData.latitude = latitude.toFixed(4).toString();
+        this.locationData.longitude = longitude.toFixed(4).toString();
         this.store.dispatch(new LoadWeather({weatherData: null}));
         this.store.dispatch(new LoadLocations({locationData: this.locationData, error: null}));
         break;
