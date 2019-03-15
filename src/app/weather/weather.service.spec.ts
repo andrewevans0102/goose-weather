@@ -1,10 +1,10 @@
-import { TestBed, async, inject } from '@angular/core/testing';
+import { TestBed, async } from '@angular/core/testing';
 import { WeatherService } from './weather.service';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from '../reducers';
 import { LocationData } from '../models/location-data/location-data';
-import { of, throwError } from 'rxjs';
+import { of } from 'rxjs';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';

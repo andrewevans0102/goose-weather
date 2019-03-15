@@ -1,8 +1,8 @@
-import { ActionReducerMap, MetaReducer, Action} from '@ngrx/store';
+import { ActionReducerMap, MetaReducer } from '@ngrx/store';
 import { environment } from '../../environments/environment';
 import { WeatherData } from '../models/weather-data/weather-data';
-import { WeatherActionTypes, WeatherAction } from '../actions/weather.actions';
-import { LocationActionTypes, LocationAction } from '../actions/location.actions';
+import { WeatherActionTypes, WeatherAction } from '../weather/weather.actions';
+import { LocationActionTypes, LocationAction } from '../weather/location.actions';
 import { LocationData } from '../models/location-data/location-data';
 
 export interface WeatherState {

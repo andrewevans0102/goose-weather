@@ -19,7 +19,7 @@ import { reducers, metaReducers } from './reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
-import { WeatherEffects } from './effects/weather.effects';
+import { WeatherEffects } from './weather/weather.effects';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
