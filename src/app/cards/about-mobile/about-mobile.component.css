@@ -1,8 +1,10 @@
-ul {
-  width: 20em;
+.about {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  flex-wrap: wrap;
 }
 
 li {
-  font-size: 1em;
   text-align: left;
 }

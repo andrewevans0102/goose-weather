@@ -115,7 +115,7 @@ export class WeatherComponent implements OnInit {
       {
         title: 'About',
         cols: 3,
-        rows: 2,
+        rows: 1,
         component: AboutMobileComponent
       }
     ];
