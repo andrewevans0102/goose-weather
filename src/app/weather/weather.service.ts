@@ -4,7 +4,7 @@ import { environment } from '../../environments/environment';
 import { WeatherData } from '../models/weather-data/weather-data';
 import { WeeklyForecast } from '../models/weekly-forecast/weekly-forecast';
 import { HourlyForecast } from '../models/hourly-forecast/hourly-forecast';
-import { Observable, throwError, of } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { catchError, mergeMap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { LocationData } from '../models/location-data/location-data';

@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { LoadWeather } from '../actions/weather.actions';
+import { LoadWeather } from './weather.actions';
 import { map, mergeMap, catchError } from 'rxjs/operators';
 import { AppState } from '../reducers';
 import { Store } from '@ngrx/store';
-import { WeatherService } from '../services/weather.service';
-import { LocationActionTypes, LocationsError, LoadLocations } from '../actions/location.actions';
-import { of, throwError } from 'rxjs';
+import { WeatherService } from './weather.service';
+import { LocationActionTypes, LocationsError, LoadLocations } from './location.actions';
+import { of } from 'rxjs';
 
 @Injectable()
 export class WeatherEffects {

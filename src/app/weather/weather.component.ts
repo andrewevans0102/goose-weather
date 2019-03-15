@@ -1,7 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { map, startWith, takeUntil } from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';
+import { map, startWith } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
-import { WeatherService } from '../services/weather.service';
+import { WeatherService } from './weather.service';
 import { CurrentConditionsComponent } from '../cards/current-conditions/current-conditions.component';
 import { WeatherDiscussionComponent } from '../cards/weather-discussion/weather-discussion.component';
 import { WeeklyForecastComponent } from '../cards/weekly-forecast/weekly-forecast.component';
@@ -10,14 +10,14 @@ import { AboutDesktopComponent } from '../cards/about-desktop/about-desktop.comp
 import { AboutMobileComponent } from '../cards/about-mobile/about-mobile.component';
 import { Store, select } from '@ngrx/store';
 import { AppState, selectError } from '../reducers';
-import { LoadLocations } from '../actions/location.actions';
+import { LoadLocations } from './location.actions';
 import { LocationData } from '../models/location-data/location-data';
 import { FormControl } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
 import * as USCities from '../../assets/us_cities.json';
 import { City } from '../models/city/city';
 import { MatAutocompleteSelectedEvent } from '@angular/material';
-import { LoadWeather } from '../actions/weather.actions';
+import { LoadWeather } from './weather.actions';
 
 @Component({
   selector: 'app-weather',
