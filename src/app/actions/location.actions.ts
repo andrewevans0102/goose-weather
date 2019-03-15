@@ -2,8 +2,8 @@ import { Action } from '@ngrx/store';
 import { LocationData } from '../models/location-data/location-data';
 
 export enum LocationActionTypes {
-  LoadLocations = '[Location] Load Locations',
-  LocationsError = '[Location] Locations Error'
+  LoadLocations = '[Home Page] Load Locations',
+  LocationsError = '[Home Page] Locations Error'
 }
 
 export class LocationAction implements Action {

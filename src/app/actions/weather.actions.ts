@@ -2,7 +2,7 @@ import { Action } from '@ngrx/store';
 import { WeatherData } from '../models/weather-data/weather-data';
 
 export enum WeatherActionTypes {
-  LoadWeather = '[Weather] Load Weather'
+  LoadWeather = '[Home Page] Load Weather'
 }
 
 export class WeatherAction implements Action {
