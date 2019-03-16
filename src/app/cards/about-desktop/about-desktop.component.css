@@ -1,17 +1,27 @@
 .about {
   display: flex;
   flex-direction: row;
-  justify-content: left;
+  justify-content: flex-start;
   flex-wrap: wrap;
+  align-items: flex-start;
+  text-align: left;
   font-size: 1.5em;
 }
 
-li {
-  text-align: left;
+img {
+  margin-left: 2em;
+  margin-right: 2em;
 }
 
-img {
+.desktop {
   display: flex;
-  justify-content: left;
-  margin-top: 1em;
+  flex-direction: column;
+}
+
+.images {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 2em;
 }
