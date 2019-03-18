@@ -17,7 +17,7 @@ export class LocationAction implements Action {
 export class LoadLocations implements Action {
   readonly type = LocationActionTypes.LoadLocations;
 
-  constructor(readonly payload: {locationData: LocationData, error: null}) {
+  constructor(readonly payload: {locationData: LocationData}) {
 
   }
 }
@@ -25,7 +25,7 @@ export class LoadLocations implements Action {
 export class LocationsError implements Action {
   readonly type = LocationActionTypes.LocationsError;
 
-  constructor(readonly payload: {locationData: null, error: string}) {
+  constructor(readonly payload: {error: string}) {
 
   }
 }

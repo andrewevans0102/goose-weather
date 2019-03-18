@@ -180,7 +180,7 @@ export class WeatherComponent implements OnInit {
       }
     }
 
-    this.store.dispatch(new LoadLocations({locationData: this.locationData, error: null}));
+    this.store.dispatch(new LoadLocations({locationData: this.locationData}));
   }
 
   onSelectionChanged(event: MatAutocompleteSelectedEvent) {
@@ -191,7 +191,7 @@ export class WeatherComponent implements OnInit {
         this.locationData.latitude = latitude.toFixed(4).toString();
         this.locationData.longitude = longitude.toFixed(4).toString();
         this.store.dispatch(new LoadWeather({weatherData: null}));
-        this.store.dispatch(new LoadLocations({locationData: this.locationData, error: null}));
+        this.store.dispatch(new LoadLocations({locationData: this.locationData}));
         break;
       }
     }
