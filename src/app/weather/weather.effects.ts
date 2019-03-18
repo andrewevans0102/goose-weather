@@ -20,7 +20,7 @@ export class WeatherEffects {
         map(weather => {
           return (new LoadWeather({weatherData: weather}));
         }),
-        catchError((errorMessage) => of(new LocationsError({locationData: null, error: errorMessage})))
+        catchError((errorMessage) => of(new LocationsError({error: errorMessage})))
       ))
   );
 
