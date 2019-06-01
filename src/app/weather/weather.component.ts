@@ -188,8 +188,8 @@ export class WeatherComponent implements OnInit {
       if (city.combinedName === event.option.value) {
         const latitude = parseFloat(city.latitude);
         const longitude = parseFloat(city.longitude);
-        this.locationData.latitude = latitude.toFixed(4).toString();
-        this.locationData.longitude = longitude.toFixed(4).toString();
+        this.locationData.latitude = latitude.toFixed(4);
+        this.locationData.longitude = longitude.toFixed(4);
         this.store.dispatch(new LoadWeather({weatherData: null}));
         this.store.dispatch(new LoadLocations({locationData: this.locationData}));
         break;
