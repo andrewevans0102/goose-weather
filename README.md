@@ -8,6 +8,7 @@
     - [Firebase](https://firebase.google.com/)
     - [CircleCI](https://circleci.com/)
 - Visit the hosted site at https://www.gooseweather.com
+- Checkout my Angular-In-Depth Post on how to use NgRx with this application [here](https://blog.angularindepth.com/how-to-start-flying-with-angular-and-ngrx-b18e84d444aa)
 
 ## Open Weather Map API
 - In order to get current conditions, this application uses the Open Weather Map API [here](https://openweathermap.org/api)
