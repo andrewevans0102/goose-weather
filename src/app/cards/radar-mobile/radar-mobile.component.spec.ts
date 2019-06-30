@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { RadarImagesComponent } from './radar-images.component';
+import { RadarMobileComponent } from './radar-mobile.component';
 import {
   MatButtonModule,
   MatCardModule,
@@ -8,13 +8,13 @@ import {
   MatMenuModule,
 } from '@angular/material';
 
-describe('RadarImagesComponent', () => {
-  let component: RadarImagesComponent;
-  let fixture: ComponentFixture<RadarImagesComponent>;
+describe('RadarMobileComponent', () => {
+  let component: RadarMobileComponent;
+  let fixture: ComponentFixture<RadarMobileComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RadarImagesComponent ],
+      declarations: [ RadarMobileComponent ],
       imports: [
         MatButtonModule,
         MatCardModule,
@@ -27,7 +27,7 @@ describe('RadarImagesComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RadarImagesComponent);
+    fixture = TestBed.createComponent(RadarMobileComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

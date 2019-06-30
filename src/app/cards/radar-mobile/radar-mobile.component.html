@@ -1,0 +1,11 @@
+<mat-grid-list cols="2" rowHeight="9.5em">
+  <mat-grid-tile
+      *ngFor="let radarImage of radarImages"
+      [colspan]="0.5"
+      [rowspan]="0.5">
+      <div class="radar-images">
+        <a href="{{radarImage.link}}"><p>{{ radarImage.location }}</p></a>
+        <img src="{{radarImage.image}}" />
+      </div>
+  </mat-grid-tile>
+</mat-grid-list>

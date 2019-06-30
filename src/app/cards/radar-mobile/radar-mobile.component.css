@@ -1,0 +1,20 @@
+.radar-images {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+}
+
+img {
+  width: 52;
+  height: 50;
+}
+
+a {
+  font-size: 1.2em;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 0.5em;
+}

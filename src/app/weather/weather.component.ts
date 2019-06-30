@@ -18,7 +18,8 @@ import * as USCities from '../../assets/us_cities.json';
 import { City } from '../models/city/city';
 import { MatAutocompleteSelectedEvent } from '@angular/material';
 import { LoadWeather } from './weather.actions';
-import { RadarImagesComponent } from '../cards/radar-images/radar-images.component';
+import { RadarDesktopComponent } from '../cards/radar-desktop/radar-desktop.component';
+import { RadarMobileComponent } from '../cards/radar-mobile/radar-mobile.component';
 
 @Component({
   selector: 'app-weather',
@@ -83,7 +84,7 @@ export class WeatherComponent implements OnInit {
         title: 'Radar Images',
         cols: 3,
         rows: 1,
-        component: RadarImagesComponent
+        component: RadarDesktopComponent
       },
       {
         title: 'About',
@@ -123,7 +124,7 @@ export class WeatherComponent implements OnInit {
         title: 'Radar Images',
         cols: 3,
         rows: 2,
-        component: RadarImagesComponent
+        component: RadarMobileComponent
       },
       {
         title: 'About',
