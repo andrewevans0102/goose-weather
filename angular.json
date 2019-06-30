@@ -98,7 +98,8 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "**/us_cities.json"
+              "**/us_cities.json",
+              "**/radar.json"
             ]
           }
         }

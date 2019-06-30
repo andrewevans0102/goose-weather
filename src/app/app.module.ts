@@ -21,6 +21,7 @@ import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { WeatherEffects } from './weather/weather.effects';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RadarImagesComponent } from './cards/radar-images/radar-images.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     WeeklyForecastComponent,
     HourlyForecastComponent,
     AboutMobileComponent,
-    AboutDesktopComponent
+    AboutDesktopComponent,
+    RadarImagesComponent
   ],
   entryComponents: [
     CurrentConditionsComponent,
@@ -40,7 +42,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     WeeklyForecastComponent,
     HourlyForecastComponent,
     AboutDesktopComponent,
-    AboutMobileComponent
+    AboutMobileComponent,
+    RadarImagesComponent
   ],
   imports: [
     BrowserModule,

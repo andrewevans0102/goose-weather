@@ -1,0 +1,62 @@
+[
+  {
+    "location": "Alaska",
+    "image": "https://radar.weather.gov//graphics/alaskath.gif",
+    "link": "https://radar.weather.gov/Conus/alaska_loop.php"
+  },
+  {
+    "location" : "Pacific Northwest",
+    "image": "https://radar.weather.gov/graphics/pacnorthwestth.gif",
+    "link" : "https://radar.weather.gov/Conus/pacnorthwest_loop.php"
+  },
+  {
+    "location": "Northern Rockies",
+    "image": "https://radar.weather.gov/../graphics/northrockiesth.gif",
+    "link": "https://radar.weather.gov/Conus/northrockies_loop.php"
+  },
+  {
+    "location": "Mississippi Valley",
+    "image" : "https://radar.weather.gov/graphics/uppermissvlyth.gif",
+    "link": "https://radar.weather.gov/Conus/uppermissvly_loop.php"
+  },
+  {
+    "location" : "Great Lakes",
+    "image": "https://radar.weather.gov/graphics/centgrtlakesth.gif",
+    "link" : "https://radar.weather.gov/Conus/centgrtlakes_loop.php"
+  },
+  {
+    "location": "Northeast",
+    "image": "https://radar.weather.gov/graphics/northeastth.gif",
+    "link" : "https://radar.weather.gov/Conus/northeast_loop.php"
+  },
+  {
+    "location": "Hawaii",
+    "image": "https://radar.weather.gov/graphics/hawaiith.gif",
+    "link": "https://radar.weather.gov/Conus/hawaii_loop.php"
+  },
+  {
+    "location": "Pacific Southwest",
+    "image": "https://radar.weather.gov/graphics/pacsouthwestth.gif",
+    "link" : "https://radar.weather.gov/Conus/pacsouthwest_loop.php"
+  },
+  {
+    "location": "Southern Rockies",
+    "image": "https://radar.weather.gov/graphics/southrockiesth.gif",
+    "link": "https://radar.weather.gov/Conus/southrockies_loop.php"
+  },
+  {
+    "location": "South Plains",
+    "image": "https://radar.weather.gov/graphics/southplainsth.gif",
+    "link": "https://radar.weather.gov/Conus/southplains_loop.php"
+  },
+  {
+    "location": "Southern Mississippi Valley",
+    "image": "https://radar.weather.gov/graphics/southmissvlyth.gif",
+    "link": "https://radar.weather.gov/Conus/southmissvly_loop.php"
+  },
+  {
+    "location": "Southeast",
+    "image": "https://radar.weather.gov/graphics/southeastth.gif",
+    "link":"https://radar.weather.gov/Conus/southeast_loop.php"
+  }
+]
